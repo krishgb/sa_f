@@ -1,0 +1,174 @@
+.table {
+  height: 90vh;
+  width: 100%;
+
+  .filters{
+    position: sticky;
+    top: 0;
+    background-color: #24272a;
+
+    z-index: 500;
+
+    padding: 1rem 0;
+  }
+
+  input:not(th input) {
+    float: right;
+    border: 1px solid #ccc;
+    padding: 0.3rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+  }
+
+  input:checked {
+    background-color: #2196F3 !important;
+  }
+
+  .table_container{
+    height: 90%;
+    overflow: scroll;
+
+    table {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+  
+      thead {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        color: #000;
+  
+      }
+
+      td{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #fff;
+      }
+  
+      th{
+        input{
+          padding: 0 .3rem;
+          width: 100%;
+          border: none;
+          outline: none;
+          border-radius: 2px;
+
+        }
+      }
+  
+      td,
+      th {
+        border: 1px solid #ddd;
+        padding: 0.2rem .3rem;
+        font-size: 0.9rem;
+      }
+  
+      tr:nth-child(even) {
+        // background-color: #f2f2f2;
+      }
+  
+      tr:hover {
+        // background-color: #ddd;
+      }
+  
+      th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #04aa6d;
+        font-size: 0.9rem;
+      }
+  
+      td:last-child{
+          text-align: center;
+      }
+    }
+  }
+}
+
+// .table_section{
+//     width: 100%;
+
+//     height: 80vh;
+//     overflow-y: scroll;
+//     background-color: white;
+
+//     // border-top: none;
+//     div{
+//         display: grid;
+//         grid-template-columns: 1fr 2fr 3fr 1fr 4fr 4fr 2fr 2fr;
+//         padding: 0 .5rem;
+//         gap: 0.5rem;
+
+//         align-items: center;
+
+//         margin-bottom: 1rem;
+//         border: 1px solid #cccccc60;
+
+//         border-radius: 5px;
+
+//         &.thead{
+//             border: 1px solid #ccc;
+//             position: sticky;
+//             top: 0;
+//             padding: .5rem 0.3rem;
+
+//             z-index: 50;
+//             background-color: white;
+//             // box-shadow: 0 3px 25px #ddd;
+//             span{
+//                 font-weight: bold;
+//             }
+//         }
+
+//         span{
+//             white-space: nowrap;
+//             overflow: hidden;
+//             text-overflow: ellipsis;
+//         }
+
+//         &:nth-child(2) {
+//             margin-top: 0.8rem;
+//         }
+
+//         &:nth-child(odd):not(.thead){
+//             // span{
+//                 background-color: #f2f2f2;
+//             // }
+//         }
+
+//     }
+// }
+
+// .table{
+//     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+//     font-size: .9rem;
+//     width: 100%;
+
+//     background-color: white;
+
+//     th, td{
+//         // border: 1px solid #000;
+//         padding: .3rem;
+//     }
+
+//     th{
+//         font-weight: bold;
+//         text-align: left;
+
+//         position: sticky;
+//         top: 7rem;
+
+//         z-index: 600;
+
+//         background-color: white;
+//     }
+
+//     tr:nth-child(even){
+//         background-color: #f2f2f2;
+//     }
+
+// }
