@@ -23,11 +23,29 @@ function App() {
             path="/"
             element={
               <div>
-                <Link to="/transfer">Transfer</Link>
+                <Link to="/transfer" style={{color: 'white'}}>Transfer</Link>
                 <br />
-                <Link to="/transfer/upload">Upload</Link>
+                <Link to="/transfer/upload" style={{color: 'white'}}>Upload</Link>
                 <br />
               </div>
+            }
+          />
+
+          <Route
+            path="/add_user"
+            element={
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
+                <AddUser />
+              </Suspense>
+            }
+          />
+
+          <Route
+            path="/signup"
+            element={
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
+                <Signup />
+              </Suspense>
             }
           />
 
@@ -36,7 +54,7 @@ function App() {
           <Route
             path="/transfer"
             element={
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
                 <TransferHome />
               </Suspense>
             }
@@ -45,7 +63,7 @@ function App() {
           <Route
             path="/transfer/upload"
             element={
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
                 <TransferUpload />
               </Suspense>
             }
@@ -54,7 +72,7 @@ function App() {
           <Route
             path="/transfer/view"
             element={
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
                 <TransferView />
               </Suspense>
             }
@@ -76,7 +94,7 @@ function App() {
           <Route
             path="/readmission"
             element={
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
                 <ReadmissionHome />
               </Suspense>
             }
@@ -85,7 +103,7 @@ function App() {
           <Route
             path="/readmission/upload"
             element={
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
                 <ReadmissionUpload />
               </Suspense>
             }
@@ -94,7 +112,7 @@ function App() {
           <Route
             path="/readmission/view"
             element={
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
                 <ReadmissionView />
               </Suspense>
             }
@@ -104,7 +122,7 @@ function App() {
           <Route
             path="/break_of_study/new"
             element={
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
                 <BreakOfStudyForm />
               </Suspense>
             }
@@ -113,7 +131,7 @@ function App() {
           <Route
             path="/break_of_study/view"
             element={
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
                 <BreakOfStudyForm />
               </Suspense>
             }
@@ -124,7 +142,7 @@ function App() {
           <Route
             path="/name_change/new"
             element={
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
                 <NameChangeForm />
               </Suspense>
             }
@@ -136,7 +154,7 @@ function App() {
           <Route
             path="/grievance/new"
             element={
-              <Suspense fallback={<>Loading...</>}>
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
                 <GrievanceForm />
               </Suspense>
             }
@@ -233,8 +251,23 @@ const NameChangeForm = lazy(() => import("@/components/name_change/NameChangeFor
  * @component
  * @returns {JSX.Element} The JSX element representing the NameChangeForm component.
  */
-const GrievanceFormOld = lazy(() => import("@/components/grievance/GrievanceFormOld"));
 const GrievanceForm = lazy(() => import("@/components/grievance/GrievanceForm"));
 
+
+/**
+ * The Add User component.
+ *
+ * @component
+ * @returns {JSX.Element} The JSX element representing the NameChangeForm component.
+ */
+const AddUser = lazy(() => import("@/components/admin/AddUser"));
+
+/**
+ * The Add User component.
+ *
+ * @component
+ * @returns {JSX.Element} The JSX element representing the NameChangeForm component.
+ */
+const Signup = lazy(() => import("@/components/signup/Signup"));
 
 export default App;

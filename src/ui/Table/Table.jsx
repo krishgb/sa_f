@@ -100,7 +100,7 @@ export default function TableUI(props) {
                                             {
                                                 header_group.headers.map((column, index) => {
                                                     return (
-                                                        <th {...column.getHeaderProps()} key={index}>
+                                                        <th {...column.getHeaderProps()} key={index} style={{fontWeight: '550'}}>
                                                             <span {...column.getSortByToggleProps()}>
                                                                 {column.render('Header')}
                                                                 &nbsp;&nbsp;

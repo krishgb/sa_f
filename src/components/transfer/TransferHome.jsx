@@ -3,16 +3,17 @@ import { rows as over_all_data } from "@/ui/data"
 import { Button, InputGroup, InputLeftAddon, Flex, Select } from "@chakra-ui/react"
 import {useLocation} from 'react-router-dom'
 const Table = lazy(() => import('@/ui/Table/Table'))
-const RaiseDemandModal = lazy(() => import('@/components/transfer/RaiseDemand/RaiseDemand'))
+const RaiseDemandModal = lazy(() => import('@/components/transfer/RaiseDemandModal/RaiseDemandModal'))
 
 const cols = [
   { Header: "S.No", accessor: "sno" },
   { Header: "Roll No", accessor: "roll_no" },
   { Header: "Name", accessor: "name" },
   { Header: "Sem", accessor: "sem" },
-  { Header: "From", accessor: "from" },
-  { Header: "To", accessor: "to" },
-  { Header: "Status", accessor: "status" },
+  {Header:"Branch",accessor:"branch_name"},
+  { Header: "From", accessor: "from_college_name" },
+  { Header: "To", accessor: "to_college_name" },
+  { Header: "Status", accessor: "transfer_status.status_name" },
   { Header: "Action", accessor: "action", disableFilters: true},
 ];
 
@@ -64,8 +65,29 @@ export default function T() {
     }
   }
 
+  const get_data = async() => {
+    try{
+      const request = await fetch(`http://localhost:5000/api/transfer/${year}`)
+      const response = await request.json()
+
+      if(!response.success){
+        throw new Error(response.msg)
+      }
+      
+      const {data} = response
+      console.log(data);
+      const students_data = data.students
+
+
+      set_all_data(groupby(students_data, "batch"))
+
+    }catch(err) {
+      console.log(err)
+    }
+  }
   useEffect(() => {
     get_academic_years()
+    get_data()
     
     if(search.length) {
       const params = new URLSearchParams(search)
@@ -145,7 +167,7 @@ export default function T() {
             </Select>
           </InputGroup>
           
-          <RaiseDemandModal batch={batch} />
+          <RaiseDemandModal batch={batch} year={year} data={all_data} />
         </Flex>
       </Table>
     </Suspense>

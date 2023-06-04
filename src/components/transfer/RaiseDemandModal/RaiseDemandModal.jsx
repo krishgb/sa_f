@@ -1,16 +1,36 @@
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
-import { useRef } from "react"
+import { useRef,useState } from "react"
 
 
-export default function RaiseDemand({batch}) {
+export default function RaiseDemand({batch,year,data}) {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-
+    const [user,setUser] = useState(9999)
     const reference_no_ref = useRef(null)
     const letter_no_ref = useRef(null)
     const due_date_ref = useRef(null)
 
     const save = async () => {
+        try{
+            const request = await fetch('http://localhost:5000/api/transfer/demand', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    reference_no: reference_no_ref.current.value,
+                    letter_no: letter_no_ref.current.value,
+                    due_date: due_date_ref.current.value,
+                    batch,
+                    user,
+                    year,
+                    data
+                })
+            
+            })
+        }catch(err){
+            console.log(err)
+        }
     }
 
     return (

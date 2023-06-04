@@ -6,42 +6,72 @@ import { Link, NavLink } from 'react-router-dom'
 export default function Demand() {
 
     const [table_data, set_table_data] = useState({rows: [], cols: []})
-    const [year, set_year] = useState('2022-2023')
+    const [year, set_year] = useState('Loading...')
+    const [academic_years, set_academic_years] = useState([])
 
+    const get_academic_years = async() => {
+        try{
+            const request = await fetch('http://localhost:5000/api/transfer/get_academic_years')
+            const response = await request.json()
+            
+            if(!response.success){
+                throw new Error(response.msg)
+            }
+            
+            const {data} = response
+            set_academic_years(data)
+            set_year(data[0])
+        }catch(err){
+            console.log(err.message)
+        }
+    }
+
+
+    const get_info = async() => {
+        try{
+            const request = await fetch(`http://localhost:5000/api/transfer/info/${year}`)
+            const response = await request.json()
+            
+            if(!response.success){
+                throw new Error(response.msg)
+            }
+            
+            const {data} = response
+            const info = data.info
+            
+           
+            const cols = [
+                {Header: 'Batch', accessor: 'batch'},
+                {Header: 'Students', accessor: 'students'},
+            ]
+            const rows = info
+            console.log(rows)
+            set_table_data({rows, cols})
+        }catch(err){
+            console.log(err.message)
+        }
+    }
+
+    
+    useEffect(() => {
+        if(year !== 'Loading...')  get_info()
+    }, [year])
 
     useEffect(() => {
-        const cols = [
-            {Header: 'Batch', accessor: 'batch'},
-            {Header: 'Students', accessor: 'students'},
-        ]
-    
-        const rows = {
-            '2022-2023': [
-                {batch: 1, students: 520},
-                {batch: 2, students: 458},
-                {batch: 3, students: 469},
-            ],
-            '2021-2022': [
-                {batch: 1, students: 458},
-                {batch: 2, students: 520},
-                {batch: 3, students: 469},
-            ],
-            '2020-2021': [
-                {batch: 1, students: 469},
-                {batch: 2, students: 458},
-                {batch: 3, students: 520},
-            ]
-        }
-
-        set_table_data({rows, cols})
+        get_academic_years()
     }, [])
 
   return (
     <>
         <Select color='white' onChange={(e) => {set_year(e.target.value)}} size='sm' width={'120px'} >
-            <option style={{color: 'black'}} value='2022-2023'>2022-2023</option>
-            <option style={{color: 'black'}} value='2021-2022'>2021-2022</option>
-            <option style={{color: 'black'}} value='2020-2021'>2020-2021</option>
+            {
+                academic_years.map((year, i) => {
+                    return (
+                        <option style={{color: 'black'}} key={i} value={year}>{year}</option>
+                    )
+                })
+            }
+           
         </Select>
 
         <TableContainer width={'700px'} mt={3} borderRadius={'5px'} border={'1px solid black'} >
@@ -57,8 +87,8 @@ export default function Demand() {
                 </Thead>
                 <Tbody>
                     {
-                        table_data.rows[year] &&
-                        table_data.rows[year].reverse().map((row, i) => {
+                        table_data.rows &&
+                        table_data.rows.reverse().map((row, i) => {
                             return (
                                 <Tr key={i}>
                                     <Td textAlign={'center'} color='white'>{row.batch}</Td>
@@ -70,7 +100,7 @@ export default function Demand() {
                                             label='Approved Records' 
                                             aria-label='Approved Records'
                                         >
-                                            <Badge cursor={'default'} colorScheme='green'>400</Badge>
+                                            <Badge cursor={'default'} colorScheme='green'>{row.approved}</Badge>
                                         </Tooltip>
                                         
                                         <Tooltip 
@@ -79,7 +109,7 @@ export default function Demand() {
                                             label='Pending Records' 
                                             aria-label='Pending Records'
                                         >
-                                            <Badge cursor={'default'} colorScheme='purple'>100</Badge>
+                                            <Badge cursor={'default'} colorScheme='purple'>{row.pending}</Badge>
                                         </Tooltip>
                                         
                                         <Tooltip 
@@ -88,7 +118,7 @@ export default function Demand() {
                                             label='Cancelled Records' 
                                             aria-label='Cancelled Records'
                                         >
-                                            <Badge cursor={'default'} colorScheme='red'>20</Badge>
+                                            <Badge cursor={'default'} colorScheme='red'>{row.cancelled}</Badge>
                                         </Tooltip>
                                     </Td>
                                     <Td textAlign={'center'} >

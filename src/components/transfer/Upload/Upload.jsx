@@ -4,6 +4,7 @@ import {PlusSquareIcon} from '@chakra-ui/icons'
 import base64 from '@/utils/base64'
 import remove_runes from '@/utils/remove_runes'
 import { useNavigate } from 'react-router-dom'
+import { fetchDetails } from '../../../lib/axios'
 
 const Table = lazy(() => import('@/ui/Table/Table'))
 const Title = lazy(() => import('@/ui/Title/Title'))
@@ -118,6 +119,7 @@ export default function Upload() {
                     year: academic_year_ref.current.value,
                     data: data.rows
                 })
+                
             })
     
             const response = await request.json()
@@ -129,12 +131,12 @@ export default function Upload() {
                 toast({title: response.msg, status: 'success', isClosable: true, size: 'sm'})
             }
 
-            if(response.not_found_list){
+           /* if(response.not_found_list){
                 setTimeout(() => {
                     localStorage.setItem('not_found_list', JSON.stringify(response.not_found_list))
                     window.open(`/not`)
                 }, 1000)
-            }
+            }*/
 
         }catch(e){
             console.log(e);
