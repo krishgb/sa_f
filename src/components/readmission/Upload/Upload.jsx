@@ -31,7 +31,7 @@ export default function Upload() {
 
 
     const handle_file = async (e) => {
-        const {readExcel} = await import ('danfojs')
+        const {readExcel} = await import ('@/lib/danfo/bundle.esm.js')
         const file = e.target.files[0]
         const name = file.name
 
@@ -109,7 +109,7 @@ export default function Upload() {
     return (
         <div style={{width: '95%', margin: 'auto'}}>
             <Text  fontSize={'1.15rem'} color='white' mb={6}> 
-                Transfer <span style={{color: 'teal', fontWeight: 'bold'}}>/</span> Upload New Batch 
+                Readmission <span style={{color: 'teal', fontWeight: 'bold'}}>/</span> Upload New Batch 
                 <Divider mt={2} borderColor='teal' />
             </Text>
             
@@ -119,6 +119,7 @@ export default function Upload() {
                         <FormLabel color={'white'}
                          fontSize={'1rem'}  size={'sm'}>Batch</FormLabel>
                         <Input 
+                            color='white'
                             borderRadius={'base'} 
                             size={'sm'} 
                             border={'1px'} 
@@ -127,6 +128,7 @@ export default function Upload() {
                             required
                             ref={batch_ref}
                             borderColor={'teal.600'}
+
                             />
                         <FormErrorMessage>Batch is required</FormErrorMessage>
                     </FormControl>
@@ -135,6 +137,7 @@ export default function Upload() {
                         <FormLabel color='white'
                          fontSize={'1rem'}  size={'sm'}>Academic Year</FormLabel>
                         <Input 
+                            color='white'
                             borderRadius={'base'} 
                             size={'sm'} 
                             border={'1px'} 
@@ -186,7 +189,7 @@ export default function Upload() {
                     <Table 
                         headers_data={data.columns} 
                         rows_data={data.rows} 
-                        editable={true} 
+                        editable={false} 
                         update_data={update_data}
                         set_selected_rows={(d) => {}}
                         set_visible_rows={(d) => {}}

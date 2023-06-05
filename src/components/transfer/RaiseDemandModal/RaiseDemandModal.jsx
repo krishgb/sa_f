@@ -5,14 +5,14 @@ import { useRef,useState } from "react"
 export default function RaiseDemand({batch,year,data}) {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [user,setUser] = useState(9999)
+    const [user,setUser] = useState({id:9999,email:"admin@admin.com"})
     const reference_no_ref = useRef(null)
     const letter_no_ref = useRef(null)
     const due_date_ref = useRef(null)
 
     const save = async () => {
         try{
-            const request = await fetch('http://localhost:5000/api/transfer/demand', {
+            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/demand', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -1,7 +1,9 @@
 import { Divider, Flex, FormControl, FormLabel, Grid, HStack, Input, PinInput, PinInputField, Radio, RadioGroup, Select, Switch } from '@chakra-ui/react'
 import React from 'react'
+import { useBreakOfStudy } from "../context";
 
 export default function BreakOfStudyDetails() {
+    const {set_data,entries} = useBreakOfStudy()
     return (
         <Grid
             gap={3}
@@ -17,8 +19,8 @@ export default function BreakOfStudyDetails() {
             <FormControl isRequired>
                 <FormLabel size='sm' fontSize={'14px'}>Semester, Duration & Period for which the Break of study is sought for</FormLabel>
                 <Flex gap={6}>
-                    <Input border='1px solid #cccccc50' size='sm' placeholder='Semester' />
-                    <Input border='1px solid #cccccc50' size='sm' placeholder='Duration in months' />
+                    <Input border='1px solid #cccccc50' size='sm' onChange={(e)=>{set_data('break_of_study_sem',e.target.value)}} placeholder='Semester' />
+                    <Input border='1px solid #cccccc50' size='sm' onChange={(e)=>{set_data('break_of_study_duration_months',e.target.value)}} placeholder='Duration in months' />
                 </Flex>
             </FormControl>
 
@@ -26,12 +28,36 @@ export default function BreakOfStudyDetails() {
 
                 <FormControl isRequired>
                     <FormLabel size='sm' fontSize={'14px'}>Form</FormLabel>
-                    <MonthYear />
+                        <HStack>
+                            <PinInput otp size={'sm'} placeholder="M" onChange={(e)=>{set_data('break_from_month',e)}}>
+                                <PinInputField border='1px solid #cccccc50' placeholder="M" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="M" />
+                            </PinInput>
+                            <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
+                            <PinInput otp size={'sm'} placeholder="Y" onChange={(e)=>{set_data('break_from_year',e)}}>
+                                <PinInputField size={'sm'} border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                            </PinInput>
+                        </HStack>
                 </FormControl>
 
                 <FormControl isRequired>
                     <FormLabel size='sm' fontSize={'14px'}>To</FormLabel>
-                    <MonthYear />
+                        <HStack>
+                            <PinInput otp size={'sm'} placeholder="M" onChange={(e)=>{set_data('break_to_month',e)}}>
+                                <PinInputField border='1px solid #cccccc50' placeholder="M" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="M" />
+                            </PinInput>
+                            <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
+                            <PinInput otp size={'sm'} placeholder="Y" onChange={(e)=>{set_data('break_to_year',e)}}>
+                                <PinInputField size={'sm'} border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                            </PinInput>
+                        </HStack>
                 </FormControl>
             </Flex>
 
@@ -41,7 +67,7 @@ export default function BreakOfStudyDetails() {
             <Flex gap={6}>
                 <FormControl isRequired>
                     <FormLabel size='sm' fontSize={'14px'}>Rejoining Semester</FormLabel>
-                    <Select size='sm' border='1px solid #cccccc50'>
+                    <Select size='sm' border='1px solid #cccccc50' onChange={(e)=>{set_data('rejoining_sem',e.target.value)}}>
                         <option style={{ color: 'black' }} value="1">1</option>
                         <option style={{ color: 'black' }} value="2">2</option>
                         <option style={{ color: 'black' }} value="3">3</option>
@@ -55,7 +81,7 @@ export default function BreakOfStudyDetails() {
 
                 <FormControl isRequired>
                     <FormLabel size='sm' fontSize={'14px'}>Rejoining Academic Year</FormLabel>
-                    <Input border='1px solid #cccccc50' size='sm' type='number' placeholder='Academic Year' />
+                    <Input border='1px solid #cccccc50' size='sm' type='number' placeholder='Academic Year' onChange={(e)=>{set_data('rejoining_academic_year',e.target.value)}}/>
                 </FormControl>
             </Flex>
 
@@ -63,14 +89,14 @@ export default function BreakOfStudyDetails() {
 
                 <FormControl isRequired>
                     <FormLabel size='sm' fontSize={'14px'}>Mention the academic year in which the maximum period for completion of the programme normally ends as per Regulations (UG / PG)</FormLabel>
-                    <Input border='1px solid #cccccc50' size='sm' type='number' placeholder='Academic Year' />
+                    <Input border='1px solid #cccccc50' size='sm' type='number' placeholder='Academic Year' onChange={(e)=>{set_data('max_period_of_completion',e.target.value)}}/>
                 </FormControl>
 
 
                 <FormControl isRequired>
                     <FormLabel size='sm' fontSize={'14px'}> Whether the remaining period after rejoining the course is as per Regulations (Tick the relevant column)</FormLabel>
 
-                    <RadioGroup mt={5} size='sm'>
+                    <RadioGroup mt={5} size='sm' onChange={(e)=>{set_data('remaining_period_as_per_regulations',e)}}>
                         <HStack>
                             <Radio border='1px solid #cccccc50' value="yes">Yes</Radio>
                             <Radio border='1px solid #cccccc50' value="no">No</Radio>
@@ -84,7 +110,7 @@ export default function BreakOfStudyDetails() {
             <FormControl isRequired>
                 <Flex gap={6}>
                     <FormLabel fontSize={'14px'}>Details of break of study availed previously, if any</FormLabel>
-                    <RadioGroup size='sm'>
+                    <RadioGroup size='sm' onChange={(e)=>{set_data('break_of_study_availed_previously',e)}}>
                         <HStack>
                             <Radio border='1px solid #cccccc50' value="yes">Yes</Radio>
                             <Radio border='1px solid #cccccc50' value="no">No</Radio>
@@ -92,37 +118,45 @@ export default function BreakOfStudyDetails() {
                     </RadioGroup>
                 </Flex>
             </FormControl>
-
+            {
+            entries.break_of_study_availed_previously === 'yes' ?(
             <Flex gap={6} alignItems={'end'}>
-                <Input border='1px solid #cccccc50' size='sm' placeholder='Semester' />
+                <Input border='1px solid #cccccc50' size='sm' placeholder='Semester' onChange={(e)=>{set_data('break_of_study_availed_previously_sem',e.target.value)}}/>
                 <FormControl>
                     <FormLabel size='sm' fontSize={'14px'}>From</FormLabel>
-                    <MonthYear />
+                        <HStack>
+                            <PinInput otp size={'sm'} placeholder="M" onChange={(e)=>{set_data('break_of_study_availed_previously_from_month',e)}}>
+                                <PinInputField border='1px solid #cccccc50' placeholder="M" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="M" />
+                            </PinInput>
+                            <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
+                            <PinInput otp size={'sm'} placeholder="Y" onChange={(e)=>{set_data('break_of_study_availed_previously_from_year',e)}}>
+                                <PinInputField size={'sm'} border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                            </PinInput>
+                        </HStack>
                 </FormControl>
                 <FormControl>
                     <FormLabel size='sm' fontSize={'14px'}>To</FormLabel>
-                    <MonthYear />
+                        <HStack>
+                            <PinInput otp size={'sm'} placeholder="M" onChange={(e)=>{set_data('break_of_study_availed_previously_to_month',e)}}>
+                                <PinInputField border='1px solid #cccccc50' placeholder="M" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="M" />
+                            </PinInput>
+                            <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
+                            <PinInput otp size={'sm'} placeholder="Y" onChange={(e)=>{set_data('break_of_study_availed_previously_to_year',e)}}>
+                                <PinInputField size={'sm'} border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
+                            </PinInput>
+                        </HStack>
                 </FormControl>
-            </Flex>
+            </Flex>):<></>
+            }
 
         </Grid>
-    )
-}
-
-function MonthYear() {
-    return (
-        <HStack>
-            <PinInput otp size={'sm'} placeholder="M">
-                <PinInputField border='1px solid #cccccc50' placeholder="M" />
-                <PinInputField border='1px solid #cccccc50' placeholder="M" />
-            </PinInput>
-            <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
-            <PinInput otp size={'sm'} placeholder="Y">
-                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
-                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
-                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
-                <PinInputField border='1px solid #cccccc50' placeholder="Y" />
-            </PinInput>
-        </HStack>
     )
 }

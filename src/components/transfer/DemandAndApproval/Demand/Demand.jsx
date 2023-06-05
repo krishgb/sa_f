@@ -11,7 +11,7 @@ export default function Demand() {
 
     const get_academic_years = async() => {
         try{
-            const request = await fetch('http://localhost:5000/api/transfer/get_academic_years')
+            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/get_academic_years')
             const response = await request.json()
             
             if(!response.success){
@@ -29,7 +29,7 @@ export default function Demand() {
 
     const get_info = async() => {
         try{
-            const request = await fetch(`http://localhost:5000/api/transfer/info/${year}`)
+            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `transfer/info/${year}`)
             const response = await request.json()
             
             if(!response.success){

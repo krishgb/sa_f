@@ -50,7 +50,7 @@ export default function T() {
 
   const get_academic_years = async() => {
     try{
-      const request = await fetch('http://localhost:5000/api/transfer/get_academic_years')
+      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/get_academic_years')
       const response = await request.json()
       
       if(!response.success){
@@ -67,7 +67,7 @@ export default function T() {
 
   const get_data = async() => {
     try{
-      const request = await fetch(`http://localhost:5000/api/transfer/${year}`)
+      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `transfer/${year}`)
       const response = await request.json()
 
       if(!response.success){

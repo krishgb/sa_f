@@ -43,7 +43,7 @@ export function Entries({children}) {
 
         if(!entries[type].length) return 
             
-        let res = await fetch(`http://localhost:5000/api/rra/set_${type}`, {
+        let res = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `rra/set_${type}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

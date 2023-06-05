@@ -109,7 +109,7 @@ export default function Upload() {
         set_error_msgs([false,false,false])
 
         try{
-            const request = await fetch('http://localhost:5000/api/transfer/upload', {
+            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/upload', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -79,7 +79,7 @@ function App() {
           />
 
           {/*  // ------------------------| readmission |------------------------ // */}
-          {/* <Route
+          <Route
             path="/"
             element={
               <div>
@@ -116,7 +116,7 @@ function App() {
                 <ReadmissionView />
               </Suspense>
             }
-          /> */}
+          />
 
           {/*  // ------------------------| Break of Study |------------------------ // */}
           <Route
@@ -200,7 +200,7 @@ const TransferView = lazy(() => import("@/components/transfer/DemandAndApproval/
  * @component
  * @returns {JSX.Element} The JSX element representing the ReadmissionHome component.
  */
-// const ReadmissionHome = lazy(() => import("@/components/readmission/ReadmissionHome"));
+const ReadmissionHome = lazy(() => import("@/components/readmission/ReadmissionHome"));
 
 // /**
 //  * The Readmission Upload component.
@@ -208,7 +208,7 @@ const TransferView = lazy(() => import("@/components/transfer/DemandAndApproval/
 //  * @component
 //  * @returns {JSX.Element} The JSX element representing the ReadmissionUpload component.
 //  */
-// const ReadmissionUpload = lazy(() => import("@/components/readmission/Upload/Upload"));
+const ReadmissionUpload = lazy(() => import("@/components/readmission/Upload/Upload"));
 
 // /**
 //  * The Readmission View component.
@@ -216,7 +216,7 @@ const TransferView = lazy(() => import("@/components/transfer/DemandAndApproval/
 //  * @component
 //  * @returns {JSX.Element} The JSX element representing the ReadmissionView component.
 //  */
-// const ReadmissionView = lazy(() => import("@/components/readmission/DemandAndApproval/DemandAndApproval"));
+const ReadmissionView = lazy(() => import("@/components/readmission/DemandAndApproval/DemandAndApproval"));
 
 
 // ------------------------| Break of Study |------------------------ //
