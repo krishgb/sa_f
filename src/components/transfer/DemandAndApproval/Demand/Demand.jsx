@@ -2,6 +2,7 @@ import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { Badge, Button, Divider, Select, Stack, Table, TableCaption, TableContainer, Tag, TagLabel, Tbody, Td, Text, Tfoot, Th, Thead, Tooltip, Tr } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 export default function Demand() {
 
@@ -9,11 +10,20 @@ export default function Demand() {
     const [year, set_year] = useState('Loading...')
     const [academic_years, set_academic_years] = useState([])
 
+    const navigate = useNavigate()
+
     const get_academic_years = async() => {
         try{
-            const request = await fetch('http://localhost:5000/api/transfer/get_academic_years')
-            const response = await request.json()
+            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/get_academic_years', {credentials: 'include'})
             
+            if(request.status === 401){
+                navigate('/login', {
+                    replace: true
+                })
+            }
+
+            const response = await request.json()
+
             if(!response.success){
                 throw new Error(response.msg)
             }
@@ -29,7 +39,7 @@ export default function Demand() {
 
     const get_info = async() => {
         try{
-            const request = await fetch(`http://localhost:5000/api/transfer/info/${year}`)
+            const request = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_URL}transfer/info/${year}`, {credentials: 'include'})
             const response = await request.json()
             
             if(!response.success){
@@ -54,7 +64,8 @@ export default function Demand() {
 
     
     useEffect(() => {
-        if(year !== 'Loading...')  get_info()
+        console.log(year);
+        if(year !== 'Loading...' && !!year)  get_info()
     }, [year])
 
     useEffect(() => {

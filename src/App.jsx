@@ -49,6 +49,15 @@ function App() {
             }
           />
 
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={<div style={{color: 'white'}}>Loading...</div>}>
+                <Login />
+              </Suspense>
+            }
+          />
+
           <Route path='/not' element={<NOT />} />
 
           <Route
@@ -269,5 +278,13 @@ const AddUser = lazy(() => import("@/components/admin/AddUser"));
  * @returns {JSX.Element} The JSX element representing the NameChangeForm component.
  */
 const Signup = lazy(() => import("@/components/signup/Signup"));
+
+/**
+ * The Add User component.
+ *
+ * @component
+ * @returns {JSX.Element} The JSX element representing the NameChangeForm component.
+ */
+const Login = lazy(() => import("@/components/login/Login"));
 
 export default App;
