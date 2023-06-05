@@ -270,4 +270,12 @@ const AddUser = lazy(() => import("@/components/admin/AddUser"));
  */
 const Signup = lazy(() => import("@/components/signup/Signup"));
 
+/**
+ * The Add User component.
+ *
+ * @component
+ * @returns {JSX.Element} The JSX element representing the NameChangeForm component.
+ */
+const Login = lazy(() => import("@/components/login/Login"));
+
 export default App;

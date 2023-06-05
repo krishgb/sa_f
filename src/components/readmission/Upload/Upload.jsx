@@ -102,7 +102,40 @@ export default function Upload() {
         }
 
         set_error_msgs([false,false,false])
+        try{
+            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'readmission/upload', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    batch: batch_ref.current.valueAsNumber,
+                    year: academic_year_ref.current.value,
+                    data: data.rows
+                })
+                
+            })
+    
+            const response = await request.json()
+            if(!response.success){
+                toast({title: response.msg, status: 'error', isClosable: true, size: 'sm'})
+            }
 
+            if(response.success){
+                toast({title: response.msg, status: 'success', isClosable: true, size: 'sm'})
+            }
+
+           /* if(response.not_found_list){
+                setTimeout(() => {
+                    localStorage.setItem('not_found_list', JSON.stringify(response.not_found_list))
+                    window.open(`/not`)
+                }, 1000)
+            }*/
+
+        }catch(e){
+            console.log(e);
+            toast({title: 'Server Error, Please try again later', status: 'error', isClosable: true, size: 'sm'})
+        }
 
     }
 
