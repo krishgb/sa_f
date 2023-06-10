@@ -30,7 +30,9 @@ const BreakOfStudyHome = lazy(() => import("@/components/break_of_study/BreakOfS
 // ADMIN
 const AddUser = lazy(() => import('@/components/admin/AddUser.jsx'))
 
-const RRAHome = lazy(() => import("@/components/rra/RRAForm"));
+const RRAUpload = lazy(() => import("@/components/rra/RRAUpload"));
+const RRAView = lazy(() => import("@/components/rra/DemandAndApproval/DemandAndApproval"));
+const RRAHome = lazy(() => import("@/components/rra/RRAHome"));
 
 
 function App() {
@@ -51,7 +53,7 @@ function App() {
     for (const route of global_allowed_routes) {
       obj[route] = true
     }
-    if(global_is_admin) obj['admin'] = true
+    if (global_is_admin) obj['admin'] = true
     set_authorized(obj)
   }, [global_user, global_allowed_routes, global_is_admin])
 
@@ -157,9 +159,9 @@ function App() {
             <Route
               path="/name_change/view"
               element={
-                  <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
-                    <NameChangeView authorized={authorized.name_change} />
-                  </Suspense>
+                <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                  <NameChangeView authorized={authorized.name_change} />
+                </Suspense>
               }
             />
 
@@ -202,16 +204,40 @@ function App() {
 
           {/* RRA Routes  */}
           <>
-              <Route path="/rra"
+            <Route path="/rra"
               element={
                 !authorized.rra ?
-                <></>
-                :
-                <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
-                  <RRAHome />
-                </Suspense>
+                  <></>
+                  :
+                  <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                    <RRAHome />
+                  </Suspense>
               }
-              />
+            />
+
+
+            <Route path="/rra/upload"
+              element={
+                !authorized.rra ?
+                  <></>
+                  :
+                  <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                    <RRAUpload />
+                  </Suspense>
+              }
+            />
+
+
+            <Route path="/rra/view"
+              element={
+                !authorized.rra ?
+                  <></>
+                  :
+                  <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                    <RRAView />
+                  </Suspense>
+              }
+            />
           </>
 
 
@@ -270,16 +296,16 @@ function App() {
               }
             />
           </>
-            {/**CSV Route */}
-            <>
+          {/**CSV Route */}
+          <>
             <Route path="/scan"
-            element={
-              <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
-                <Csv />
-              </Suspense>
-            }
-          />
-            </>
+              element={
+                <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                  <Csv />
+                </Suspense>
+              }
+            />
+          </>
 
           {/* ADMIN Routes */}
           <>

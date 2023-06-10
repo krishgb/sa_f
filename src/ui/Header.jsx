@@ -11,18 +11,26 @@ import {
     MenuList,
 } from '@chakra-ui/react'
 import { lazy } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useGlobalContext } from '../lib/global_context'
 
 const SideBar = lazy(() => import('@/ui/Sidebar'))
 
 export default function Header() {
+    const navigate = useNavigate()
 
     const { global_user, global_allowed_routes, global_is_admin, global_set_user } = useGlobalContext()
     const signout = () => {
         fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'signout', { credentials: 'include' })
-        localStorage.removeItem('user')
-        global_set_user(null)
+        .then(res => res.json())
+        .then(res => {
+            if (!res.success) {
+                throw new Error(res.msg)
+            }
+            localStorage.removeItem('user')
+            global_set_user(null)
+            navigate('/', { replace: true })
+        }).catch(err => console.log(err))
     }
 
     return (
@@ -213,15 +221,14 @@ export default function Header() {
                     </Link>
                     {
                         global_user ?
-                            <Link
-                                as={NavLink}
-                                to="/signout"
+                            <Text
+                                cursor={'pointer'}
+                                title='Sign out'
                                 p={2}
-                                _activeLink={{ color: 'blue' }}
                                 onClick={signout}
                             >
                                 Sign out
-                            </Link>
+                            </Text>
                             :
                             <Link
                                 as={NavLink}

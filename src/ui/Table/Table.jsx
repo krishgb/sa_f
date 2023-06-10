@@ -73,7 +73,6 @@ export default function TableUI(props) {
     const { globalFilter } = state
 
     useEffect(() => {
-        console.log(selectedFlatRows);
         if(selectedFlatRows.length === 0){
             set_selected_rows(rows.map(i => i.original))
             return
