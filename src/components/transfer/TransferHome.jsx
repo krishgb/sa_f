@@ -3,6 +3,8 @@ import { rows as over_all_data } from "@/ui/data"
 import { Button, InputGroup, InputLeftAddon, Flex, Select } from "@chakra-ui/react"
 import {useLocation} from 'react-router-dom'
 const Table = lazy(() => import('@/ui/Table/Table'))
+import {useGlobalContext} from '@/lib/global_context'
+
 const RaiseDemandModal = lazy(() => import('@/components/transfer/RaiseDemandModal/RaiseDemandModal'))
 
 const cols = [
@@ -45,12 +47,45 @@ export default function T() {
   const [batch, set_batch] = useState(Object.keys(all_data).sort()[0]);
   const [selected, set_selected] = useState([]);
   // const [visible, set_visible] = useState([]);
+  const {global_user, global_allowed_routes, global_is_admin} = useGlobalContext()
+  const options = {
+    'Staff':[[0,'Pending'],[10,'Cancel']],
+    'Finance Clerk':[[5,'Approve'],[10,'Cancel']]
+  }
+
+  const [status, setStatus] = useState(Object.keys(options).includes(global_user.designation.name)?options[global_user.designation.name][0][0]:0)
+  
 
   const {search} = useLocation()
 
+  const change_status = async() => {
+    try{
+      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `transfer/change_status/${year}`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          status,
+          students: selected
+        }),
+        credentials: 'include'
+      })
+      const response = await request.json()
+
+      if(!response.success){
+        throw new Error(response.msg)
+      }
+
+      get_data()
+    }catch(err){
+      console.log(err)
+    }
+  }
+
   const get_academic_years = async() => {
     try{
-      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/get_academic_years')
+      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/get_academic_years',{credentials: 'include'})
       const response = await request.json()
       
       if(!response.success){
@@ -67,7 +102,7 @@ export default function T() {
 
   const get_data = async() => {
     try{
-      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `transfer/${year}`)
+      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `transfer/${year}`,{credentials: 'include'})
       const response = await request.json()
 
       if(!response.success){
@@ -103,13 +138,15 @@ export default function T() {
   const [open_raise_demand_modal, set_open_raise_demand_modal] = useState(false)
   const set_selected_rows = (rows) => {
     set_selected(rows);
+
+    // console.log(rows);
   }
 
   const set_visible_rows = (rows) => {
     // set_visible(rows);
   }
 
-
+  
 
   return (
     <>
@@ -123,7 +160,7 @@ export default function T() {
         changeable={true}
       >
 
-        <Flex gap={2} display={'inline-flex'}>
+        <Flex gap={4} display={'inline-flex'}>
 
           <InputGroup size={'sm'} width={'auto'}>
             <InputLeftAddon
@@ -166,8 +203,41 @@ export default function T() {
               }
             </Select>
           </InputGroup>
+
+          {
+          (global_user.designation.name==='Staff' || global_user.designation.name==='Finance Clerk')&&(<InputGroup size={'sm'} width={'auto'} >
+            <Select backgroundColor={'white'} size='sm' onChange={(e)=>{setStatus(e.target.value)}} value={batch} borderLeftRadius={'5px'}>
+              {
+                options[global_user.designation.name].map((option, index) => {
+                  return (
+                    <option key={index} value={option[0]}>{option[1]}</option>
+                  )
+                })
+              }
+            </Select>
+            <Button
+              bgColor={'#5169f6'} 
+              color='white' 
+              children="Set Status"
+              size={'sm'}
+              px={6}
+              borderTopLeftRadius={'0px'}
+              borderBottomLeftRadius={'0px'}
+              onClick={change_status}
+
+            >
+              Set Status
+            </Button>
+          </InputGroup>)}
+
           
-          <RaiseDemandModal batch={batch} year={year} data={all_data} />
+          
+          {global_user.designation.name==='Staff'&&(
+            <>
+            <RaiseDemandModal batch={batch} year={year} data={selected.length>0?selected:all_data} name="Raise Demand"/>
+
+            <RaiseDemandModal batch={batch} year={year} data={selected.length>0?selected:all_data} name="Generate Approval"/>
+            </>)}
         </Flex>
       </Table>
     </Suspense>

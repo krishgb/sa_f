@@ -73,12 +73,18 @@ export default function TableUI(props) {
     const { globalFilter } = state
 
     useEffect(() => {
+        console.log(selectedFlatRows);
+        if(selectedFlatRows.length === 0){
+            set_selected_rows(rows.map(i => i.original))
+            return
+        }
         set_selected_rows([...selectedFlatRows.map(i => i.original)])
     }, [selectedFlatRows])
 
 
     useEffect(() => {
-        set_visible_rows(rows.map(i => i.original))
+        // set_visible_rows(rows.map(i => i.original))
+        // console.log(rows);
     }, [rows])
     return (
         <>

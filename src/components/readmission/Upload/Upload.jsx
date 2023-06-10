@@ -1,6 +1,6 @@
 //Readmission Upload.jsx
 import { lazy, Suspense, useRef, useState } from 'react'
-import { Input, FormControl, Flex, Button, FormErrorMessage, Text, FormLabel, Divider ,useToast} from '@chakra-ui/react'
+import { Input, FormControl, Flex, Button, FormErrorMessage, Text, FormLabel, useToast} from '@chakra-ui/react'
 import {PlusSquareIcon} from '@chakra-ui/icons'
 import base64 from '@/utils/base64'
 import remove_runes from '@/utils/remove_runes'
@@ -145,8 +145,8 @@ export default function Upload() {
         <div style={{width: '95%', margin: 'auto'}}>
             <Text  fontSize={'1.15rem'} color='white' mb={6}> 
                 Readmission <span style={{color: 'teal', fontWeight: 'bold'}}>/</span> Upload New Batch 
-                <Divider mt={2} borderColor='teal' />
             </Text>
+                {/* <Divider mt={2} borderColor='teal' /> */}
             
                 <Flex gap={'1rem'} mb={'1'}>
                     

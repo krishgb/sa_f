@@ -5,13 +5,33 @@ import { Badge, Button, Divider, Select, Stack, Table, TableCaption, TableContai
 import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import {useNavigate} from 'react-router-dom'
+import {useGlobalContext} from '@/lib/global_context'
 
 export default function Demand() {
+    const {global_user, global_allowed_routes, global_is_admin} = useGlobalContext()
+    
 
     const [table_data, set_table_data] = useState({rows: [], cols: []})
     const [year, set_year] = useState('Loading...')
     const [academic_years, set_academic_years] = useState([])
 
+
+    console.log(global_user)
+
+
+    const users_actions ={
+        'admin':[[0,1,2,3,4,5,6,7,8],0,[9]],
+        'Superintendent':[[0],1,[1,2,3,4,5,6,7,8,9]],
+        'Deputy Director':[[1],2,[2,3,4,5,6,7,8,9]],
+        'Director':[[2],3,[3,4,5,6,7,8,9]],
+        'Finance Clerk':[[4],5,[5,6,7,8,9]],
+        'Staff':[[3],4,[4,5,6,7,8,9]]
+    }
+
+    const pending = users_actions[global_user.designation.name][0]
+    const status = users_actions[global_user.designation.name][1]
+    const approved = users_actions[global_user.designation.name][2]
+    console.log(`pending: ${pending}, status: ${status}, approved: ${approved}`)
     const navigate = useNavigate()
 
     const get_academic_years = async() => {
@@ -41,7 +61,16 @@ export default function Demand() {
 
     const get_info = async() => {
         try{
-            const request = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_URL}transfer/info/${year}`, {credentials: 'include'})
+            const request = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_URL}transfer/info/${year}`,
+            {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({pending:pending,approved:approved}),
+                credentials: 'include'
+            }
+            )
             const response = await request.json()
             
             if(!response.success){
@@ -61,6 +90,33 @@ export default function Demand() {
             set_table_data({rows, cols})
         }catch(err){
             console.log(err.message)
+        }
+    }
+    const approve = async(batch) => {
+        try{
+            console.log(
+                'approve initiated'
+            );
+            const request = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_URL}transfer/approve/${year}`,
+            {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({status:status, batch:batch,pending:pending}),
+                credentials: 'include'
+            }
+            )
+            const response = await request.json()
+            
+            if(!response.success){
+                throw new Error(response.msg)
+            }
+            
+            get_info()
+
+        }catch(e){
+            console.log()
         }
     }
 
@@ -107,6 +163,7 @@ export default function Demand() {
                                     <Td textAlign={'center'} color='white'>{row.batch}</Td>
                                     <Td textAlign={'center'} color='white'>{row.students}</Td>
                                     <Td>
+                                        
                                         <Tooltip 
                                             bg={'green.400'} 
                                             hasArrow 
@@ -134,10 +191,13 @@ export default function Demand() {
                                             <Badge cursor={'default'} colorScheme='red'>{row.cancelled}</Badge>
                                         </Tooltip>
                                     </Td>
-                                    <Td textAlign={'center'} >
-                                        <Button backgroundColor={'teal.400'} _hover={{backgroundColor: 'teal.600'}} color='white' size='sm'>
-                                            Approve for Raising Demand
-                                        </Button>
+                                    <Td textAlign={'center'}>
+                                        
+                                       
+                                       <Button onClick={()=>{console.log('Button clicked');approve(row.batch)}} isDisabled={row.pending===0 | global_user.designation.name==='Staff'} backgroundColor={'teal.400'} _hover={{backgroundColor: 'teal.600'}} color='white' size='sm'>
+                                                {(global_user.designation.name==='Staff') ? "Cick view raise demand" : "Approve for Raising Demand"}
+                                            </Button>
+                                        
                                     </Td>
                                     <Td>
                                         <Button as={Link} to={`/transfer?year=${year}&batch=${row.batch}`}>

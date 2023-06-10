@@ -5,6 +5,7 @@ import { useGlobalContext } from './lib/global_context.jsx'
 import NOT from '@/components/transfer/Upload/NotFoundModal.JSX'
 
 import Layout from "@/ui/Layout";
+import Csv from "./components/scan/csv.jsx";
 
 const Signup = lazy(() => import("@/components/signup/Signup"));
 const Login = lazy(() => import("@/components/login/Login"));
@@ -26,7 +27,11 @@ const GrievanceForm = lazy(() => import("@/components/grievance/GrievanceForm"))
 const BreakOfStudyForm = lazy(() => import("@/components/break_of_study/BreakOfStudyForm"));
 const BreakOfStudyHome = lazy(() => import("@/components/break_of_study/BreakOfStudyHome"));
 
+// ADMIN
 const AddUser = lazy(() => import('@/components/admin/AddUser.jsx'))
+
+const RRAHome = lazy(() => import("@/components/rra/RRAForm"));
+
 
 function App() {
   const { global_user, global_allowed_routes, global_is_admin } = useGlobalContext();
@@ -46,8 +51,9 @@ function App() {
     for (const route of global_allowed_routes) {
       obj[route] = true
     }
+    if(global_is_admin) obj['admin'] = true
     set_authorized(obj)
-  }, [global_user, global_allowed_routes])
+  }, [global_user, global_allowed_routes, global_is_admin])
 
   return (
     <>
@@ -194,8 +200,22 @@ function App() {
 
           </>
 
+          {/* RRA Routes  */}
+          <>
+              <Route path="/rra"
+              element={
+                !authorized.rra ?
+                <></>
+                :
+                <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                  <RRAHome />
+                </Suspense>
+              }
+              />
+          </>
 
-          {/* RRA Routes */}
+
+          {/* Name Change Routes */}
 
           <>
             <Route
@@ -250,7 +270,16 @@ function App() {
               }
             />
           </>
-
+            {/**CSV Route */}
+            <>
+            <Route path="/scan"
+            element={
+              <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                <Csv />
+              </Suspense>
+            }
+          />
+            </>
 
           {/* ADMIN Routes */}
           <>

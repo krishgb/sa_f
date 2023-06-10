@@ -1,37 +1,85 @@
-import {useState, useContext, createContext} from 'react'
-import UGEntry from './UG/UGForm';
-import LEEntry from './LE/LEForm';
-import PGEntry from './PG/PGForm';
-import {Entries} from './context'
+import { Tab, TabList, TabPanel, TabPanels, Tabs, Text } from '@chakra-ui/react'
+import { Suspense, lazy, useState } from 'react'
+import Skeleton from '@/ui/Skeleton'
 
+const UG = lazy(() => import('./UG/UG'))
+const PG = lazy(() => import('./PG/PG'))
+const LE = lazy(() => import('./LE/LE'))
 
-export default function App(){
-    const [admission_type, set_admission_type] = useState('ug')
-    
-
+export default function RRAForm() {
     return (
-        <Entries>
-            <div>
-                <p onClick={() => set_admission_type('ug')}>UG</p>
-                <p onClick={() => set_admission_type('le')}>LE</p>
-                <p onClick={() => set_admission_type('pg')} >PG</p>
-            </div>
+        <>
+            <Text color='white' ml={2}>
+                <span style={{fontWeight: '600'}}>RRA</span>
+                &nbsp;&nbsp;
+                Upload New Batch
+            </Text>
+            <Tabs colorScheme='teal'>
+                <TabList color={'white'} >
+                    <Tab fontWeight={'bold'}  >UG</Tab>
+                    <Tab fontWeight={'bold'}  >PG</Tab>
+                    <Tab fontWeight={'bold'} >LE</Tab>
+                </TabList>
 
-            <input type="text" placeholder='College name' />
-            <div style={{display: admission_type === 'ug' ? 'block' : 'none' }}>
-                <UGEntry  />
-            </div>
-
-            <div style={{display: admission_type === 'pg' ? 'block' : 'none' }}>
-                <PGEntry />
-            </div>
-
-            <div style={{display: admission_type === 'le' ? 'block' : 'none' }}>
-                <LEEntry />
-            </div>
-        </Entries>
+                <TabPanels color={'white'}>
+                    <TabPanel>
+                        <Suspense fallback={<Skeleton />} >
+                            <UG />
+                        </Suspense>
+                    </TabPanel>
+                    
+                    <TabPanel>
+                        <Suspense fallback={<Skeleton />} >
+                            <PG />
+                        </Suspense>
+                    </TabPanel>
+                    
+                    <TabPanel>
+                        <Suspense fallback={<Skeleton />} >
+                            <LE />
+                        </Suspense>
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
+        </>
     )
 }
+
+
+// import {useState, useContext, createContext} from 'react'
+// import UGEntry from './UG/UGForm';
+// import LEEntry from './LE/LEForm';
+// import PGEntry from './PG/PGForm';
+// import {Entries} from './context'
+
+
+// export default function RRA(){
+//     const [admission_type, set_admission_type] = useState('ug')
+    
+
+//     return (
+//         <Entries>
+//             <div>
+//                 <p onClick={() => set_admission_type('ug')}>UG</p>
+//                 <p onClick={() => set_admission_type('le')}>LE</p>
+//                 <p onClick={() => set_admission_type('pg')} >PG</p>
+//             </div>
+
+//             <input type="text" placeholder='College name'  />
+//             <div style={{display: admission_type === 'ug' ? 'block' : 'none', color: 'white' }}>
+//                 <UGEntry  />
+//             </div>
+
+//             <div style={{display: admission_type === 'pg' ? 'block' : 'none' }}>
+//                 <PGEntry />
+//             </div>
+
+//             <div style={{display: admission_type === 'le' ? 'block' : 'none' }}>
+//                 <LEEntry />
+//             </div>
+//         </Entries>
+//     )
+// }
 
 
 // import { useRef, useState } from "react";

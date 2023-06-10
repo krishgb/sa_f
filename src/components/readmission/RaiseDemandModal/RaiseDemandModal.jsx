@@ -1,19 +1,18 @@
 //Readmission/RaiseDemand/RaiseDemand.jsx
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
-import { useRef ,useState} from "react"
+import { useRef, useState } from "react"
 
 
-export default function RaiseDemand({batch,year,data}) {
+export default function RaiseDemand({ batch, year, data, name }) {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [user,setUser] = useState({id:9999,email:"admin@admin.com"})
 
     const reference_no_ref = useRef(null)
     const letter_no_ref = useRef(null)
     const due_date_ref = useRef(null)
 
     const save = async () => {
-        try{
+        try {
             const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'readmission/demand', {
                 method: 'POST',
                 headers: {
@@ -24,29 +23,33 @@ export default function RaiseDemand({batch,year,data}) {
                     letter_no: letter_no_ref.current.value,
                     due_date: due_date_ref.current.value,
                     batch,
-                    user,
                     year,
-                    data
-                })
-            
+                    data,
+                    name
+                }),
+                credentials: 'include'
             })
-        }catch(err){
+
+            const response = await request.json()
+            console.log(response);
+            onClose()
+        } catch (err) {
             console.log(err)
         }
     }
 
     return (
         <>
-            <Button 
-                borderRadius={3} 
-                backgroundColor={'#5169f6'} 
-                size={'sm'} 
+            <Button
+                borderRadius={3}
+                backgroundColor={'#5169f6'}
+                size={'sm'}
                 color='white'
                 fontWeight={'500'}
                 onClick={onOpen}
-                _hover={{backgroundColor: '#5169f6'}}
+                _hover={{ backgroundColor: '#5169f6' }}
             >
-                Raise Demand
+                {name}
             </Button>
 
             <Modal
@@ -56,7 +59,7 @@ export default function RaiseDemand({batch,year,data}) {
             >
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader fontSize={'1.2rem'} >Raise Demand for Batch {batch || 0}</ModalHeader>
+                    <ModalHeader fontSize={'1.2rem'} >{name} for Batch {batch || 0}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <FormControl isInvalid={/*error_msgs[0]*/ ''} >
@@ -126,10 +129,10 @@ export default function RaiseDemand({batch,year,data}) {
 
 //     return (
 //         <>
-//             <Button 
-//                 borderRadius={3} 
-//                 backgroundColor={'#5169f6'} 
-//                 size={'sm'} 
+//             <Button
+//                 borderRadius={3}
+//                 backgroundColor={'#5169f6'}
+//                 size={'sm'}
 //                 color='white'
 //                 fontWeight={'500'}
 //                 onClick={onOpen}

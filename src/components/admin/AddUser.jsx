@@ -1,9 +1,8 @@
 // components/admin/AddUser.jsx
 
 import {Box, FormControl, FormLabel, Grid, Text, Input, Select, Button, useToast, Checkbox, CheckboxGroup, Stack} from '@chakra-ui/react'
-import { useRef, useState } from 'react'
+import {useState } from 'react'
 import { z } from 'zod'
-import {useMultiSelect, MultiSelect} from 'chakra-multiselect'
 
 export default function AddUser(){
     const [state, set_state] = useState({
@@ -16,7 +15,7 @@ export default function AddUser(){
 
     const body_schema = z.object({
         email: z.string().email(),
-        designation: z.enum(['Director', 'Deputy Director', 'Staff', 'Finance Clerk'])
+        designation: z.enum(['Director', 'Deputy Director', 'Staff', 'Finance Clerk', 'Superintendent'])
     })
 
     const add_user = async (e) => {
@@ -41,7 +40,8 @@ export default function AddUser(){
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({...state})
+                body: JSON.stringify({...state}),
+                credentials: 'include'
             })
             const response = await request.json()
             toast({
@@ -93,6 +93,7 @@ export default function AddUser(){
                             <option style={{color: 'black'}} value='Director'>Director</option>
                             <option style={{color: 'black'}} value='Deputy Director'>Deputy Director</option>
                             <option style={{color: 'black'}} value='Finance Clerk'>Finance Clerk</option>
+                            <option style={{color: 'black'}} value='Superintendent'>Superintendent</option>
                         </Select>
                     </FormControl>
 
