@@ -27,6 +27,7 @@ const COLUMNS = {
         { accessor: "branch", Header: "Branch" },
         { accessor: "sanctioned", Header: "Sanctioned" },
         { accessor: "admitted", Header: "Admitted" },
+      
     ],
     pg: [
         { accessor: "sno", Header: "S No" },
@@ -45,7 +46,7 @@ const COLUMNS = {
         { accessor: "state", Header: "State" },
         { accessor: "college", Header: "College" },
         { accessor: "branch", Header: "Branch" },
-        { accessor: "status", Header: "Status" },
+       
     ],
     le: [
         { accessor: "sno", Header: "S No" },
@@ -62,10 +63,11 @@ const COLUMNS = {
         { accessor: "first_graduate", Header: "First Graduate" },
         { accessor: "pmss", Header: "PMSS" },
         { accessor: "college", Header: "College" },
-        { accessor: "branch", Header: "Branch" }
+        { accessor: "branch", Header: "Branch" },
+       
     ]
 }
-export default function RRAUploadTable({ admission_type }) {
+export default function RRAUploadTable( {admission_type} ) {
 
     const toast = useToast()
     const [data, set_data] = useState({ columns: [], rows: [] })
@@ -148,17 +150,20 @@ export default function RRAUploadTable({ admission_type }) {
 
         set_error_msgs([false, false, false])
         try {
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'readmission/upload', {
+            console.log(admission_type)
+            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'rra/upload', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    admission_type,
+                    admission_type:String(admission_type),
                     batch: batch_ref.current.valueAsNumber,
                     year: academic_year_ref.current.value,
                     data: data.rows
-                })
+                }),
+                credentials: 'include'
+
 
             })
 

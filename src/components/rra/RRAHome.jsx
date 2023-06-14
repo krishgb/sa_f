@@ -26,6 +26,8 @@ const COLUMNS = {
         { accessor: "branch", Header: "Branch" },
         { accessor: "sanctioned", Header: "Sanctioned" },
         { accessor: "admitted", Header: "Admitted" },
+        { accessor: "rra_status.status_name", Header: "Status" },
+
     ],
     pg: [
         { accessor: "sno", Header: "S No" },
@@ -44,7 +46,7 @@ const COLUMNS = {
         { accessor: "state", Header: "State" },
         { accessor: "college", Header: "College" },
         { accessor: "branch", Header: "Branch" },
-        { accessor: "status", Header: "Status" },
+        { accessor: "rra_status.status_name", Header: "Status" },
     ],
     le: [
         { accessor: "sno", Header: "S No" },
@@ -61,7 +63,8 @@ const COLUMNS = {
         { accessor: "first_graduate", Header: "First Graduate" },
         { accessor: "pmss", Header: "PMSS" },
         { accessor: "college", Header: "College" },
-        { accessor: "branch", Header: "Branch" }
+        { accessor: "branch", Header: "Branch" },
+        { accessor: "rra_status.status_name", Header: "Status" },
     ]
 }
 
@@ -84,7 +87,7 @@ const groupby = (data, key) => {
 };
 
 export default function T() {
-    const [admission_type, set_admission_type] = useState('')
+    const [admission_type, set_admission_type] = useState()
 
     const [year, set_year] = useState("2022-2023");
     const [academic_years, set_academic_years] = useState([]);
@@ -133,7 +136,7 @@ export default function T() {
 
     const get_academic_years = async () => {
         try {
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL +     `rra/${admission_type}/get_academic_years`, { credentials: 'include' })
+            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL +`rra/${admission_type}/get_academic_years`, { credentials: 'include' })
             const response = await request.json()
 
             if (!response.success) {
@@ -169,8 +172,13 @@ export default function T() {
     }
 
     useEffect(() => {
-        get_academic_years()
-        get_data()
+        if(admission_type && year) {
+            get_academic_years()
+            get_data()
+        }
+    }, [admission_type, year])
+
+    useEffect(() => {
         if (search.length) {
             const params = new URLSearchParams(search)
             const is_batch = params.has('batch') && /^\d{1,2}$/.test(params.get('batch'))
@@ -198,7 +206,7 @@ export default function T() {
         <>
             <Suspense fallback={<p>Loading...</p>} >
                 {
-                    all_data.length && 
+                    all_data.length  === 0 ? <></> :
                     <Table
                         headers_data={COLUMNS[admission_type]}
                         rows_data={all_data[batch]}
@@ -279,9 +287,9 @@ export default function T() {
 
                             {global_user.designation.name === 'Staff' && (
                                 <>
-                                    <RaiseDemandModal batch={batch} year={year} data={selected.length > 0 ? selected : all_data} name="Raise Demand" />
+                                    <RaiseDemandModal batch={batch} year={year} data={selected.length > 0 ? selected : all_data} name="Raise Demand" admission_type={admission_type}/>
 
-                                    <RaiseDemandModal batch={batch} year={year} data={selected.length > 0 ? selected : all_data} name="Generate Approval" />
+                                    <RaiseDemandModal batch={batch} year={year} data={selected.length > 0 ? selected : all_data} name="Generate Approval" admission_type={admission_type}/>
                                 </>)}
                         </Flex>
                     </Table>

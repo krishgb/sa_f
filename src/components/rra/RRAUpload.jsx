@@ -27,7 +27,7 @@ export default function RRAUpload() {
             />
             <RadioGroup 
                 defaultValue='ug' 
-                onChange={set_admission_type}
+                onChange={(e)=>{set_admission_type(e)}}
                 color='white' 
                 width={'95%'} 
                 m='auto'

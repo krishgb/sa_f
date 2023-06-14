@@ -5,6 +5,7 @@ import ColumnFilter from "./ColumnFilter";
 import { Checkbox } from "./Checkbox";
 import { GlobalFilter } from "./GlobalFilter";
 import EditableCell from "./EditableCell";
+import {TableContainer, Table, Thead, Tbody, Tr, Th, Td} from '@chakra-ui/react'
 
 export default function TableUI(props) {
     const { headers_data, rows_data, children, set_selected_rows, set_visible_rows, editable, changeable, dependencies } = props
@@ -94,18 +95,21 @@ export default function TableUI(props) {
                 </div>
 
                 <div className={styles.table_container}>
-                    <table {...getTableProps} >
+                    <Table {...getTableProps}  >
 
-                        <thead>
+                        <Thead>
                             {
                                 headerGroups.map((header_group, index) => {
 
                                     return (
-                                        <tr key={index} {...header_group.getHeaderGroupProps}>
+                                        <Tr key={index} {...header_group.getHeaderGroupProps}>
                                             {
                                                 header_group.headers.map((column, index) => {
                                                     return (
-                                                        <th {...column.getHeaderProps()} key={index} style={{fontWeight: '550'}}>
+                                                        <Th 
+                                                            // bgColor='#3182ce'
+                                                            bgColor={'#5169f6'} 
+                                                            color='white' {...column.getHeaderProps()} key={index} style={{fontWeight: '550'}}>
                                                             <span {...column.getSortByToggleProps()}>
                                                                 {column.render('Header')}
                                                                 &nbsp;&nbsp;
@@ -116,38 +120,38 @@ export default function TableUI(props) {
                                                                     column.canFilter ? column.render('Filter') : null
                                                                 }
                                                             </div>
-                                                        </th>
+                                                        </Th>
                                                     )
                                                 })
                                             }
-                                        </tr>
+                                        </Tr>
                                     )
                                 })
                             }
-                        </thead>
+                        </Thead>
 
-                        <tbody {...getTableBodyProps}>
+                        <Tbody {...getTableBodyProps}>
                             {
                                 rows.map((row, index) => {
                                     prepareRow(row)
                                     return (
-                                        <tr key={index} {...row.getRowProps()}>
+                                        <Tr key={index} {...row.getRowProps()}>
                                             {
                                                 row.cells.map((cell, index) => {
                                                     return (
-                                                        <td key={index} {...cell.getCellProps()}>
+                                                        <Td key={index} {...cell.getCellProps()}>
                                                             {cell.render('Cell')}
-                                                        </td>
+                                                        </Td>
                                                     )
                                                 })
                                             }
-                                        </tr>
+                                        </Tr>
                                     )
                                 })
                             }
-                        </tbody>
+                        </Tbody>
 
-                    </table>
+                    </Table>
                 </div>
 
             </div>
