@@ -9,7 +9,10 @@ export default function Demand() {
 
     const [table_data, set_table_data] = useState({ rows: [], cols: [] })
     const [year, set_year] = useState('Loading...')
+    const [isodd, set_isodd] = useState(true)
     const [academic_years, set_academic_years] = useState([])
+
+
     const { global_user, global_allowed_routes, global_is_admin } = useGlobalContext()
     const users_actions = {
         'admin': [[0, 1, 2, 3, 4, 5, 6, 7, 8], 0, [9]],
@@ -26,7 +29,7 @@ export default function Demand() {
 
     const get_academic_years = async () => {
         try {
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/get_academic_years', { credentials: 'include' })
+            const request = await fetch('/api/transfer/get_academic_years', { credentials: 'include' })
             const response = await request.json()
 
             if (!response.success) {
@@ -42,12 +45,12 @@ export default function Demand() {
     }
     const get_info = async () => {
         try {
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `transfer/info/${year}`, {
+            const request = await fetch(`/api/transfer/info/${year}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ pending: pending, approved: approved }),
+                body: JSON.stringify({ pending: pending, approved: approved,isodd:isodd }),
                 credentials: 'include'
             })
             const response = await request.json()
@@ -77,13 +80,13 @@ export default function Demand() {
             console.log(
                 'approve initiated'
             );
-            const request = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_URL}transfer/approve/${year}`,
+            const request = await fetch(`/api/transfer/approve/${year}`,
                 {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ status: status, batch: batch, pending: pending }),
+                    body: JSON.stringify({ status: status, batch: batch, pending: pending ,isodd}),
                     credentials: 'include'
                 }
             )
@@ -103,8 +106,9 @@ export default function Demand() {
 
 
     useEffect(() => {
+
         if (year !== 'Loading...') get_info()
-    }, [year])
+    }, [year,isodd])
 
     useEffect(() => {
         get_academic_years()
@@ -193,6 +197,14 @@ export default function Demand() {
                 }
 
             </Select>
+            <Select color='white' onChange={(e) => { set_isodd(e.target.value==='0') }} size='sm' width={'120px'} >
+
+                <option style={{ color: 'black' }} value={0}>Odd</option>
+                <option style={{ color: 'black' }} value={1}>Even</option>
+
+
+
+            </Select>
 
             <TableContainer width={'700px'} mt={3} borderRadius={'5px'} border={'1px solid black'} >
                 <Table variant={'simple'} border={'1px solid #cccccc50'}>
@@ -247,7 +259,7 @@ export default function Demand() {
                                             </Button>
                                         </Td>
                                         <Td>
-                                            <Button as={Link} to={`/transfer?year=${year}&batch=${row.batch}`}>
+                                            <Button as={Link} to={`/transfer?year=${year}&batch=${row.batch}&isodd=${isodd}`}>
                                                 <ExternalLinkIcon color={'black'} />
                                             </Button>
                                         </Td>

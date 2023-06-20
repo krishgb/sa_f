@@ -13,7 +13,7 @@ export default function Csv() {
         const file = input_ref.current.files[0]
         const data = new FormData()
         data.append('file', file)
-        const response = await fetch('http://127.0.0.1:5000/table_extract', {
+        const response = await fetch('http://127.0.0.1:8000/table_extract', {
             method: 'POST',
             body: data
         })

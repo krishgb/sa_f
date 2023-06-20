@@ -40,8 +40,9 @@ const groupby = (data, key) => {
 
 
 export default function T() {
-  const [year, set_year] = useState("2022-2023");
+  const [year, set_year] = useState(null);
   const [academic_years, set_academic_years] = useState([]);
+  const [isodd, set_isodd] = useState(null)
 
   const [all_data, set_all_data] = useState(groupby(over_all_data, "batch"));
   const [batch, set_batch] = useState(Object.keys(all_data).sort()[0]);
@@ -60,7 +61,7 @@ export default function T() {
 
   const change_status = async() => {
     try{
-      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `transfer/change_status/${year}`,{
+      const request = await fetch(`/api/transfer/change_status/${year}`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -85,7 +86,7 @@ export default function T() {
 
   const get_academic_years = async() => {
     try{
-      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/get_academic_years',{credentials: 'include'})
+      const request = await fetch('/api/transfer/get_academic_years',{credentials: 'include'})
       const response = await request.json()
       
       if(!response.success){
@@ -101,8 +102,9 @@ export default function T() {
   }
 
   const get_data = async() => {
+    if(year === undefined || isodd === undefined) return
     try{
-      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `transfer/${year}`,{credentials: 'include'})
+      const request = await fetch(`api/transfer?year=${year}&isodd=${isodd}`,{credentials: 'include'})
       const response = await request.json()
 
       if(!response.success){
@@ -110,9 +112,7 @@ export default function T() {
       }
       
       const {data} = response
-      console.log(data);
       const students_data = data.students
-
 
       set_all_data(groupby(students_data, "batch"))
 
@@ -120,17 +120,23 @@ export default function T() {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    if(year === null || isodd === null) return
+    get_data()
+  }, [year, isodd])
+  
   useEffect(() => {
     get_academic_years()
-    get_data()
-    
     if(search.length) {
       const params = new URLSearchParams(search)
       const is_batch = params.has('batch') && /^\d{1,2}$/.test(params.get('batch'))
       const is_year = params.has('year') && /^\d{4}-\d{4}$/.test(params.get('year'))
+      const is_odd = params.has('isodd') && /^(true|false)$/.test(params.get('is_odd'))
       if(is_batch && is_year) {
         set_batch(parseInt(params.get('batch')))
         set_year(params.get('year'))
+        set_isodd(params.get('isodd') === 'true')
       }
     }
   }, [])
@@ -138,8 +144,6 @@ export default function T() {
   const [open_raise_demand_modal, set_open_raise_demand_modal] = useState(false)
   const set_selected_rows = (rows) => {
     set_selected(rows);
-
-    // console.log(rows);
   }
 
   const set_visible_rows = (rows) => {
@@ -151,95 +155,120 @@ export default function T() {
   return (
     <>
     <Suspense fallback={<p style={{color: 'white'}}>Loading...</p>} >
-      <Table  
-        headers_data={cols}
-        rows_data={all_data[batch]}
-        set_selected_rows={set_selected_rows}
-        set_visible_rows={set_visible_rows}
-        editable={false}
-        changeable={true}
-      >
 
-        <Flex gap={4} display={'inline-flex'}>
+        <Table  
+          headers_data={cols}
+          rows_data={all_data[batch] || []}
+          set_selected_rows={set_selected_rows}
+          set_visible_rows={set_visible_rows}
+          editable={false}
+          changeable={true}
+        >
+          <Flex gap={4} display={'inline-flex'}>
 
-          <InputGroup size={'sm'} width={'auto'}>
+            <InputGroup size={'sm'} width={'auto'}>
+              <InputLeftAddon
+                borderLeftRadius={'5px'}
+                border={'1px solid #5169f6'}
+                borderRight={'none'}
+                bgColor={'#5169f6'}
+                color='white'
+                children="Academic Year"
+              />
+              <Select backgroundColor={'white'} size={'sm'} onChange={e => {set_year(e.target.value)}} value={year} borderRightRadius={'5px'}>
+                {academic_years}
+                {
+                  academic_years.map((year, index) => {
+                    return (
+                      <option key={index} value={year}>{year}</option>
+                    )
+                  })
+                }
+              </Select>
+            </InputGroup>
+
+            <InputGroup size={'sm'} width={'auto'}>
             <InputLeftAddon
-              borderLeftRadius={'5px'}
-              border={'1px solid #5169f6'}
-              borderRight={'none'}
-              bgColor={'#5169f6'}
-              color='white'
-              children="Academic Year"
-            />
-            <Select backgroundColor={'white'} size={'sm'} onChange={e => {set_year(e.target.value)}} value={year} borderRightRadius={'5px'}>
-              {academic_years}
-              {
-                academic_years.map((year, index) => {
-                  return (
-                    <option key={index} value={year}>{year}</option>
-                  )
-                })
-              }
-            </Select>
-          </InputGroup>
+                borderLeftRadius={'5px'}
+                border={'1px solid #5169f6'}
+                borderRight={'none'}
+                bgColor={'#5169f6'}
+                color='white'
+                children="Sem Type"
+              />
+                        <Select  size={'sm'} onChange={(e) => {set_isodd(e.target.value==='0')}} value={isodd?0:1} borderRightRadius={'5px'}
+                         color='black'
+                         borderRadius={'base'}
+                         border={'1px'}
+                         type="number"
+                         required
+                         borderColor={'teal.600'}
+                         backgroundColor={'white'}
+                        >
 
-          <InputGroup size={'sm'} width={'auto'} >
-            <InputLeftAddon 
-              borderLeftRadius={'5px'} 
-              border={'1px solid #5169f6'} 
-              borderRight={'none'}
-              bgColor={'#5169f6'} 
-              color='white' 
-              children="Batch" 
+                            <option style={{color: 'black'}} value={0}>Odd</option>
+                            <option style={{color: 'black'}} value={1}>Even</option>
 
-            />
-            <Select backgroundColor={'white'} size='sm' onChange={e => {set_batch(parseInt(e.target.value))}} value={batch} borderRightRadius={'5px'}>
-              {
-                Object.keys(all_data).map((batch, index) => {
-                  return (
-                    <option key={index} value={batch}>{batch}</option>
-                  )
-                })
-              }
-            </Select>
-          </InputGroup>
+                        </Select>
+            </InputGroup>
 
-          {
-          (global_user.designation.name==='Staff' || global_user.designation.name==='Finance Clerk')&&(<InputGroup size={'sm'} width={'auto'} >
-            <Select backgroundColor={'white'} size='sm' onChange={(e)=>{setStatus(e.target.value)}} value={batch} borderLeftRadius={'5px'}>
-              {
-                options[global_user.designation.name].map((option, index) => {
-                  return (
-                    <option key={index} value={option[0]}>{option[1]}</option>
-                  )
-                })
-              }
-            </Select>
-            <Button
-              bgColor={'#5169f6'} 
-              color='white' 
-              children="Set Status"
-              size={'sm'}
-              px={6}
-              borderTopLeftRadius={'0px'}
-              borderBottomLeftRadius={'0px'}
-              onClick={change_status}
+            <InputGroup size={'sm'} width={'auto'} >
+              <InputLeftAddon 
+                borderLeftRadius={'5px'} 
+                border={'1px solid #5169f6'} 
+                borderRight={'none'}
+                bgColor={'#5169f6'} 
+                color='white' 
+                children="Batch" 
 
-            >
-              Set Status
-            </Button>
-          </InputGroup>)}
+              />
+              <Select backgroundColor={'white'} size='sm' onChange={e => {set_batch(parseInt(e.target.value))}} value={batch} borderRightRadius={'5px'}>
+                {
+                  Object.keys(all_data).map((batch, index) => {
+                    return (
+                      <option key={index} value={batch}>{batch}</option>
+                    )
+                  })
+                }
+              </Select>
+            </InputGroup>
 
-          
-          
-          {global_user.designation.name==='Staff'&&(
-            <>
-            <RaiseDemandModal batch={batch} year={year} data={selected.length>0?selected:all_data} name="Raise Demand"/>
+            {
+            (global_user.designation.name==='Staff' || global_user.designation.name==='Finance Clerk')&&(<InputGroup size={'sm'} width={'auto'} >
+              <Select backgroundColor={'white'} size='sm' onChange={(e)=>{setStatus(e.target.value)}} value={batch} borderLeftRadius={'5px'}>
+                {
+                  options[global_user.designation.name].map((option, index) => {
+                    return (
+                      <option key={index} value={option[0]}>{option[1]}</option>
+                    )
+                  })
+                }
+              </Select>
+              <Button
+                bgColor={'#5169f6'} 
+                color='white' 
+                children="Set Status"
+                size={'sm'}
+                px={6}
+                borderTopLeftRadius={'0px'}
+                borderBottomLeftRadius={'0px'}
+                onClick={change_status}
 
-            <RaiseDemandModal batch={batch} year={year} data={selected.length>0?selected:all_data} name="Generate Approval"/>
-            </>)}
-        </Flex>
-      </Table>
+              >
+                Set Status
+              </Button>
+            </InputGroup>)}
+
+            
+            
+            {global_user.designation.name==='Staff'&&(
+              <>
+              <RaiseDemandModal batch={batch} year={year} data={selected.length>0?selected:all_data} isodd={isodd} name="Raise Demand"/>
+
+              <RaiseDemandModal batch={batch} year={year} data={selected.length>0?selected:all_data} isodd={isodd} name="Generate Approval"/>
+              </>)}
+          </Flex>
+        </Table>
     </Suspense>
     </>
   );
@@ -297,7 +326,7 @@ export default function T() {
 
 //   const get_academic_years = async() => {
 //     try{
-//       const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/get_academic_years')
+//       const request = await fetch('/api/transfer/get_academic_years')
 //       const response = await request.json()
       
 //       if(!response.success){
@@ -314,7 +343,7 @@ export default function T() {
 
 //   const get_data = async() => {
 //     try{
-//       const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `transfer/${year}`)
+//       const request = await fetch(`/api/transfer/${year}`)
 //       const response = await request.json()
 
 //       if(!response.success){

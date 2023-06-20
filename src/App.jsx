@@ -14,7 +14,7 @@ const TransferHome = lazy(() => import('@/components/transfer/TransferHome.jsx')
 const TransferUpload = lazy(() => import("@/components/transfer/Upload/Upload"));
 const TransferView = lazy(() => import("@/components/transfer/DemandAndApproval/DemandAndApproval"));
 
-const NameChangeForm = lazy(() => import("@/components/name_change/NameChangeForm"));
+const NameChangeForm = lazy(() => import("@/components/name_change/NewOrCheckStatus"));
 const NameChangeView = lazy(() => import("@/components/name_change/NameChangeView"));
 
 const ReadmissionHome = lazy(() => import("@/components/readmission/ReadmissionHome"));
@@ -22,10 +22,11 @@ const ReadmissionUpload = lazy(() => import("@/components/readmission/Upload/Upl
 const ReadmissionView = lazy(() => import("@/components/readmission/DemandAndApproval/DemandAndApproval"));
 
 // const NameChangeForm = lazy(() => import("@/components/name_change/NameChangeForm"));
-const GrievanceForm = lazy(() => import("@/components/grievance/GrievanceForm"));
+const GrievanceForm = lazy(() => import("@/components/grievance/NewOrCheckStatus"));
+const GrievanceView = lazy(() => import("@/components/grievance/GrievanceView"));
 
-const BreakOfStudyForm = lazy(() => import("@/components/break_of_study/BreakOfStudyForm"));
-const BreakOfStudyHome = lazy(() => import("@/components/break_of_study/BreakOfStudyHome"));
+const BreakOfStudyForm = lazy(() => import("@/components/break_of_study/NewOrCheckStatus"));
+const BreakOfStudyHome = lazy(() => import("@/components/break_of_study/BreakOfStudyView"));
 
 // ADMIN
 const AddUser = lazy(() => import('@/components/admin/AddUser.jsx'))
@@ -33,6 +34,9 @@ const AddUser = lazy(() => import('@/components/admin/AddUser.jsx'))
 const RRAUpload = lazy(() => import("@/components/rra/RRAUpload"));
 const RRAView = lazy(() => import("@/components/rra/DemandAndApproval/DemandAndApproval"));
 const RRAHome = lazy(() => import("@/components/rra/RRAHome"));
+
+// Homepage
+const Homepage = lazy(() => import("@/ui/Homepage"));
 
 
 function App() {
@@ -64,10 +68,13 @@ function App() {
           <Route path="/"
             element={
               <div>
-                <Link to="/signup" style={{ color: 'white' }}>Signup</Link>
+                <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                  <Homepage />
+                </Suspense>
+                {/* <Link to="/signup" style={{ color: 'white' }}>Signup</Link>
                 <br />
                 <Link to="/login" style={{ color: 'white' }}>Login</Link>
-                <br />
+                <br /> */}
               </div>
             }
           />
@@ -145,14 +152,11 @@ function App() {
           {/* Name Change Routes */}
           <>
             <Route
-              path="/name_change/new"
+              path="/name_change/new_or_check_status"
               element={
-                authorized.name_change ?
                   <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
                     <NameChangeForm />
                   </Suspense>
-                  :
-                  <></>
               }
             />
 
@@ -240,34 +244,25 @@ function App() {
             />
           </>
 
-
-          {/* Name Change Routes */}
-
-          <>
-            <Route
-              path="/name_change/new"
-              element={
-                authorized.rra ?
-                  <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
-                    <NameChangeForm />
-                  </Suspense>
-                  :
-                  <></>
-              }
-            />
-          </>
-
-
           {/* Grievance */}
           <>
             <Route
-              path="/grievance/new"
+              path="/grievance/new_or_check_status"
+              element={
+                  <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                    <GrievanceForm/>
+                  </Suspense>
+              }
+            />
+             <Route
+              path="/grievance/view"
               element={
                 authorized.grievance ?
-                  <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
-                    <GrievanceForm />
-                  </Suspense>
-                  : <></>
+                <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                  <GrievanceView />
+                </Suspense>
+                :
+                <></>
               }
             />
           </>
@@ -276,12 +271,9 @@ function App() {
           <>
             <Route path="/break_of_study/new"
               element={
-                authorized.break_of_study ?
                   <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
                     <BreakOfStudyForm />
                   </Suspense>
-                  :
-                  <></>
               }
             />
 

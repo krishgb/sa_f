@@ -3,7 +3,7 @@ import { Button, FormControl, FormErrorMessage, FormLabel, Input, Modal, ModalBo
 import { useRef, useState } from "react"
 
 
-export default function RaiseDemand({ batch, year, data, name }) {
+export default function RaiseDemand({ batch, year, data, name ,isodd}) {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -13,7 +13,7 @@ export default function RaiseDemand({ batch, year, data, name }) {
 
     const save = async () => {
         try {
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'readmission/demand', {
+            const request = await fetch('/api/readmission/demand', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -25,7 +25,8 @@ export default function RaiseDemand({ batch, year, data, name }) {
                     batch,
                     year,
                     data,
-                    name
+                    name,
+                    isodd
                 }),
                 credentials: 'include'
             })

@@ -1,6 +1,6 @@
 //Readmission Upload.jsx
 import { lazy, Suspense, useRef, useState } from 'react'
-import { Input, FormControl, Flex, Button, FormErrorMessage, Text, FormLabel, useToast} from '@chakra-ui/react'
+import { Input, FormControl, Flex, Button, FormErrorMessage, Text, FormLabel, InputGroup, InputLeftAddon,Select, useToast} from '@chakra-ui/react'
 import {PlusSquareIcon} from '@chakra-ui/icons'
 import base64 from '@/utils/base64'
 import remove_runes from '@/utils/remove_runes'
@@ -13,6 +13,7 @@ export default function Upload() {
     const [data_file, set_data_file] = useState({file: '', name: ''})
     
     const [error_msgs, set_error_msgs] = useState([false, false, false])
+    const [isodd,set_isodd] = useState(true)
 
     const batch_ref = useRef(null)
     const academic_year_ref = useRef(null)
@@ -102,7 +103,7 @@ export default function Upload() {
 
         set_error_msgs([false,false,false])
         try{
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'readmission/upload', {
+            const request = await fetch('/api/readmission/upload', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -110,7 +111,8 @@ export default function Upload() {
                 body: JSON.stringify({
                     batch: batch_ref.current.valueAsNumber,
                     year: academic_year_ref.current.value,
-                    data: data.rows
+                    data: data.rows,
+                    isodd
                 })
                 
             })
@@ -138,6 +140,27 @@ export default function Upload() {
             </Text>
             
             <Flex gap={'1rem'} mb={'1'}>
+            <FormControl isInvalid={error_msgs[0]} size={'sm'} width={'200px'}>
+                    <FormLabel color={'white'}
+                        fontSize={'1rem'} size={'sm'}>Sem Type</FormLabel>
+                    <InputGroup size={'sm'} width={'auto'}>
+                        <Select  size={'sm'} onChange={(e) => {set_isodd(e.target.value==='0')}} value={isodd} borderRightRadius={'5px'}
+                         color='white'
+                         borderRadius={'base'}
+                         border={'1px'}
+                         type="number"
+                         required
+                         borderColor={'teal.600'}
+                         backgroundColor={'transparent'}
+                        >
+
+                            <option style={{color: 'black'}} value={0}>Odd</option>
+                            <option style={{color: 'black'}} value={1}>Even</option>
+
+                        </Select>
+                    </InputGroup>
+                    <FormErrorMessage>Select Sem Type</FormErrorMessage>
+                </FormControl>
                 
                 <FormControl isInvalid={error_msgs[0]} size={'sm'} width={'200px'}>
                     <FormLabel color={'white'}
@@ -173,6 +196,7 @@ export default function Upload() {
                         />
                     <FormErrorMessage>Academic Year is required</FormErrorMessage>
                 </FormControl>
+              
 
                 <FormControl isInvalid={error_msgs[2]} width={'300px'}>
                     <FormLabel color='white'
@@ -332,7 +356,7 @@ export default function Upload() {
 
 //         set_error_msgs([false,false,false])
 //         try{
-//             const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'readmission/upload', {
+//             const request = await fetch('/api/readmission/upload', {
 //                 method: 'POST',
 //                 headers: {
 //                     'Content-Type': 'application/json'

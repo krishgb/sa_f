@@ -151,7 +151,7 @@ export default function RRAUploadTable( {admission_type} ) {
         set_error_msgs([false, false, false])
         try {
             console.log(admission_type)
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'rra/upload', {
+            const request = await fetch('/api/rra/upload', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

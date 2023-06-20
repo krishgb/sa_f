@@ -31,7 +31,7 @@ export default function DemandTable({admission_type}) {
 
     const get_academic_years = async() => {
         try{
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `rra/${admission_type}/get_academic_years`, {credentials: 'include'})
+            const request = await fetch(`/api/rra/${admission_type}/get_academic_years`, {credentials: 'include'})
             
             if(request.status === 401){
                 navigate('/login', {
@@ -54,7 +54,7 @@ export default function DemandTable({admission_type}) {
     }
     const get_info = async() => {
         try{
-            const request = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_URL}rra/${admission_type}/info/${year}`, 
+            const request = await fetch(`/api/rra/${admission_type}/info/${year}`, 
             {
                 method:'POST',
                 headers: {
@@ -89,7 +89,7 @@ export default function DemandTable({admission_type}) {
             console.log(
                 'approve initiated'
             );
-            const request = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_URL}rra/${admission_type}/approve/${year}`,
+            const request = await fetch(`/api/rra/${admission_type}/approve/${year}`,
             {
                 method:'POST',
                 headers: {

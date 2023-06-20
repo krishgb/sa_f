@@ -25,7 +25,7 @@ export default function Login(){
 
         try{
 
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'login', {
+            const request = await fetch('/api/login', {
                 credentials: 'include',
                 method: 'POST',
                 headers: {

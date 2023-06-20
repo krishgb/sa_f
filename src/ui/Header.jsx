@@ -21,7 +21,7 @@ export default function Header() {
 
     const { global_user, global_allowed_routes, global_is_admin, global_set_user } = useGlobalContext()
     const signout = () => {
-        fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'signout', { credentials: 'include' })
+        fetch('/api/signout', { credentials: 'include' })
         .then(res => res.json())
         .then(res => {
             if (!res.success) {
@@ -64,11 +64,12 @@ export default function Header() {
             </GridItem>
 
             <GridItem
-                backgroundColor={'#3182ce'}
+                backgroundColor={global_allowed_routes.length ? '#3182ce' : 'transparent'}
                 p={1}
                 borderRadius={'50px'}
                 color='whitesmoke'
             >
+
                 <Flex justifyContent={'space-around'} alignItems={'center'}>
                     {
                         global_allowed_routes.includes('transfer') &&
@@ -163,7 +164,7 @@ export default function Header() {
                             </MenuButton>
                             <MenuList color='white' backgroundColor={'blackAlpha.800'} minWidth={'150px'}>
                                 <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/break_of_study/view'>View</MenuItem>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/break_of_study/new'>New</MenuItem>
+                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/break_of_study/new'>New or Check Status</MenuItem>
                             </MenuList>
                         </Menu>
                     }
@@ -182,7 +183,7 @@ export default function Header() {
                             </MenuButton>
                             <MenuList color='white' backgroundColor={'blackAlpha.800'} minWidth={'150px'}>
                                 <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/name_change/view'>View</MenuItem>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/name_change/new'>New</MenuItem>
+                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/name_change/new_or_check_status'>New or Check Status</MenuItem>
                             </MenuList>
                         </Menu>
                     }
@@ -202,7 +203,7 @@ export default function Header() {
                             </MenuButton>
                             <MenuList color='white' backgroundColor={'blackAlpha.800'} minWidth={'150px'}>
                                 <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/grievance/view'>View</MenuItem>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/grievance/new'>New</MenuItem>
+                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/grievance/new_or_check_status'>New or Check Status</MenuItem>
                             </MenuList>
                         </Menu>
                     }
@@ -211,33 +212,46 @@ export default function Header() {
 
             <GridItem placeItems={'center'} display={'grid'}>
                 <Flex>
-                    <Link
-                        as={NavLink}
-                        to="/"
-                        p={2}
-                        _activeLink={{ color: 'blue' }}
-                    >
-                        Dashboard
-                    </Link>
                     {
                         global_user ?
-                            <Text
-                                cursor={'pointer'}
-                                title='Sign out'
-                                p={2}
-                                onClick={signout}
-                            >
-                                Sign out
-                            </Text>
+                            <>
+                                <Link
+                                        as={NavLink}
+                                        to="/"
+                                        p={2}
+                                        _activeLink={{ color: 'blue' }}
+                                    >
+                                        Dashboard
+                                    </Link>
+                                    <Text
+                                        cursor={'pointer'}
+                                        title='Sign out'
+                                        p={2}
+                                        onClick={signout}
+                                    >
+                                        Sign out
+                                    </Text>
+                            </>
                             :
-                            <Link
+                            <>
+                                <Link
+                                    as={NavLink}
+                                    to="/login"
+                                    p={2}
+                                    _activeLink={{ color: 'blue' }}
+                                >
+                                    Staff Login
+                                </Link>
+
+                                <Link
                                 as={NavLink}
-                                to="/login"
+                                to="/signup"
                                 p={2}
                                 _activeLink={{ color: 'blue' }}
-                            >
-                                Login
-                            </Link>
+                                >
+                                    Staff Signup
+                                </Link>
+                            </>
                     }
                 </Flex>
             </GridItem>
@@ -245,4 +259,3 @@ export default function Header() {
 
     )
 }
-

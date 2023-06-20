@@ -2,7 +2,7 @@ import { Button, Divider, Flex, FormControl, FormLabel, Grid, Input, Select, Tex
 import React, { useState } from 'react'
 import { async } from 'regenerator-runtime'
 
-export default function NameChangeForm() {
+export default function GrievanceForm() {
    
     const [form, setForm] = useState({
         name: '',
@@ -21,7 +21,7 @@ export default function NameChangeForm() {
     })
     const submit = async(e) => {
         e.preventDefault()
-        const url = import.meta.env.VITE_REACT_APP_SERVER_URL + 'grievance'   
+        const url = '/api/grievance/create'   
 
         const req = await fetch(url, {
             method: 'POST',
@@ -80,7 +80,7 @@ export default function NameChangeForm() {
 
                         <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Course</FormLabel>
-                            <Grid size='sm' templateColumns={'.2fr .8fr'}>
+                            <Grid size='sm' templateColumns={'.25fr .75fr'}>
                                 <Select size={'sm'} border={'1px solid #cccccc50'} onChange={(e)=>{setForm({...form,programme:e.target.value})}}>
                                     <option style={{color: 'black'}} value="UG">UG</option>
                                     <option style={{color: 'black'}} value="PG">PG</option>

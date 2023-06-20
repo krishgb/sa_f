@@ -35,7 +35,7 @@ export default function AddUser(){
         }
 
         try{
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'add_user', {
+            const request = await fetch('/api/add_user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

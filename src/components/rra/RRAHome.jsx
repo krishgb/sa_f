@@ -111,7 +111,7 @@ export default function T() {
 
     const change_status = async () => {
         try {
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `rra/${admission_type}/change_status/${year}`, {
+            const request = await fetch(`/api/rra/${admission_type}/change_status/${year}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -136,7 +136,7 @@ export default function T() {
 
     const get_academic_years = async () => {
         try {
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL +`rra/${admission_type}/get_academic_years`, { credentials: 'include' })
+            const request = await fetch(`/api/rra/${admission_type}/get_academic_years`, { credentials: 'include' })
             const response = await request.json()
 
             if (!response.success) {
@@ -152,7 +152,7 @@ export default function T() {
     }
     const get_data = async () => {
         try {
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `rra/${admission_type}/${year}`, { credentials: 'include' })
+            const request = await fetch(`/api/rra/${admission_type}/${year}`, { credentials: 'include' })
             const response = await request.json()
 
             if (!response.success) {

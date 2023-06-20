@@ -46,6 +46,8 @@ export default function T() {
   const [selected, set_selected] = useState([]);
   // const [visible, set_visible] = useState([]);
   const {global_user, global_allowed_routes, global_is_admin} = useGlobalContext()
+  const [isodd, set_isodd] = useState(null)
+
   const options = {
     'Staff':[[0,'Pending'],[10,'Cancel']],
     'Finance Clerk':[[5,'Approve'],[10,'Cancel']]
@@ -60,7 +62,7 @@ export default function T() {
 
   const change_status = async() => {
     try{
-      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `readmission/change_status/${year}`,{
+      const request = await fetch(`/api/readmission/change_status/${year}`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -91,7 +93,7 @@ export default function T() {
 
   const get_academic_years = async() => {
     try{
-      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'readmission/get_academic_years',{credentials: 'include'})
+      const request = await fetch('/api/readmission/get_academic_years',{credentials: 'include'})
       const response = await request.json()
       
       if(!response.success){
@@ -107,7 +109,9 @@ export default function T() {
   }
   const get_data = async() => {
     try{
-      const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `readmission/${year}`, {credentials: 'include'})
+      if(year === undefined || isodd === undefined) return
+
+      const request = await fetch(`api/readmission?year=${year}&isodd=${isodd}`,{credentials: 'include'})
       const response = await request.json()
 
       if(!response.success){
@@ -125,6 +129,12 @@ export default function T() {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    if(year === null || isodd === null) return
+    get_data()
+  }, [year, isodd])
+  
   useEffect(() => {
     get_academic_years()
     get_data()
@@ -132,9 +142,13 @@ export default function T() {
       const params = new URLSearchParams(search)
       const is_batch = params.has('batch') && /^\d{1,2}$/.test(params.get('batch'))
       const is_year = params.has('year') && /^\d{4}-\d{4}$/.test(params.get('year'))
+      const is_odd = params.has('isodd') && /^(true|false)$/.test(params.get('is_odd'))
+
       if(is_batch && is_year) {
         set_batch(parseInt(params.get('batch')))
         set_year(params.get('year'))
+        set_isodd(params.get('isodd') === 'true')
+
       }
     }
   }, [])
@@ -152,9 +166,10 @@ export default function T() {
   return (
     <>
     <Suspense fallback={<p>Loading...</p>} >
+    
       <Table  
         headers_data={cols}
-        rows_data={all_data[batch]}
+        rows_data={all_data[batch]||[]}
         set_selected_rows={set_selected_rows}
         set_visible_rows={set_visible_rows}
         editable={false}
@@ -183,6 +198,31 @@ export default function T() {
               }
             </Select>
           </InputGroup>
+          <InputGroup size={'sm'} width={'auto'}>
+            <InputLeftAddon
+                borderLeftRadius={'5px'}
+                border={'1px solid #5169f6'}
+                borderRight={'none'}
+                bgColor={'#5169f6'}
+                color='white'
+                children="Sem Type"
+              />
+                        <Select  size={'sm'} onChange={(e) => {set_isodd(e.target.value==='0')}} value={isodd?0:1} borderRightRadius={'5px'}
+                         color='black'
+                         borderRadius={'base'}
+                         border={'1px'}
+                         type="number"
+                         required
+                         borderColor={'teal.600'}
+                         backgroundColor={'white'}
+                        >
+
+                            <option style={{color: 'black'}} value={0}>Odd</option>
+                            <option style={{color: 'black'}} value={1}>Even</option>
+
+                        </Select>
+            </InputGroup>
+
 
           <InputGroup size={'sm'} width={'auto'} >
             <InputLeftAddon 
@@ -232,12 +272,13 @@ export default function T() {
           
           {global_user.designation.name==='Staff'&&(
             <>
-            <RaiseDemandModal batch={batch} year={year} data={selected.length>0?selected:all_data} name="Raise Demand"/>
+            <RaiseDemandModal batch={batch} year={year} data={selected.length>0?selected:all_data} isodd={isodd} name="Raise Demand"/>
 
-            <RaiseDemandModal batch={batch} year={year} data={selected.length>0?selected:all_data} name="Generate Approval"/>
+            <RaiseDemandModal batch={batch} year={year} data={selected.length>0?selected:all_data} isodd={isodd} name="Generate Approval"/>
             </>)}
         </Flex>
       </Table>
+
     </Suspense>
     </>
   );

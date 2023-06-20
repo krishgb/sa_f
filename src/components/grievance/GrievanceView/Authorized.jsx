@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Link, Select, Stack, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useToast } from '@chakra-ui/react'
-import React, { useCallback, useEffect, useReducer, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { AttachmentIcon } from '@chakra-ui/icons'
 
 
@@ -30,7 +30,7 @@ export default function Authorized() {
   const toast = useToast()
   const get_years = async()=>{
     try{
-      const req = await fetch(`/api/name_change/get_years`, {credentials: 'include'})
+      const req = await fetch(`/api/grievance/get_years`, {credentials: 'include'})
       const res = await req.json()
       console.log(res.data)
       if(res.success){
@@ -64,7 +64,7 @@ export default function Authorized() {
   const year_change = useCallback( async(value) => {
     console.log(value);
       try{
-        const req = await fetch(`/api/name_change/read/${value}`, {credentials: 'include'})
+        const req = await fetch(`/api/grievance/read/${value}`, {credentials: 'include'})
         const res = await req.json()
 
         if(res.success){
@@ -95,7 +95,7 @@ export default function Authorized() {
   const change_status = async(student, status) => {
     const remarks = prompt('Enter remarks (optional)')
     try{
-    const req = await fetch(`/api/name_change/change_status`, {
+    const req = await fetch(`/api/grievance/change_status`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -179,15 +179,16 @@ export default function Authorized() {
               <Tr fontSize={'10px'}>
                 <Th bgColor={'blue'} position='sticky' top='0' w={'1%'} color='white' zIndex={'100'}>S.No</Th>
                 <Th bgColor={'blue'} position='sticky' top='0' w={'10%'} color='white' zIndex={'100'}>Student Name</Th>
-                <Th bgColor={'blue'} position='sticky' top='0' w={'10%'} color='white' zIndex={'100'}>New Name</Th>
                 <Th bgColor={'blue'} position='sticky' top='0' w={'10%'} color='white' zIndex={'100'}>Roll no</Th>
                 <Th bgColor={'blue'} position='sticky' top='0' w={'15%'} color='white' zIndex={'100'}>Institution</Th>
                 <Th bgColor={'blue'} position='sticky' top='0' w={'10%'} color='white' zIndex={'100'}>Course / Branch</Th>
                 <Th bgColor={'blue'} position='sticky' top='0' w={'5%'} color='white' zIndex={'100'}>Semester</Th>
-                <Th bgColor={'blue'} position='sticky' top='0' w={'5%'} color='white' zIndex={'100'}>TN Gazeete <br/> Page No</Th>
-                <Th bgColor={'blue'} position='sticky' top='0' w={'9%'} color='white' zIndex={'100'}>Date of <br/>Gazette Release</Th>
-                <Th bgColor={'blue'} position='sticky' top='0' w={'10%'} color='white' zIndex={'100'}>Signed <br /> Doc</Th>
-                <Th bgColor={'blue'} position='sticky' top='0' w={'10%'} color='white' zIndex={'100'}>Gazette <br /> File</Th>
+                <Th bgColor={'blue'} position='sticky' top='0' w={'5%'} color='white' zIndex={'100'}>Mode</Th>
+                <Th bgColor={'blue'} position='sticky' top='0' w={'9%'} color='white' zIndex={'100'}>Grievance Type</Th>
+                <Th bgColor={'blue'} position='sticky' top='0' w={'10%'} color='white' zIndex={'100'}>Related To</Th>
+                <Th bgColor={'blue'} position='sticky' top='0' w={'10%'} color='white' zIndex={'100'}>Grievance</Th>
+                <Th bgColor={'blue'} position='sticky' top='0' w={'10%'} color='white' zIndex={'100'}>Attachments</Th>
+
                 <Th bgColor={'blue'} position='sticky' top='0' w={'10%'} color='white' zIndex={'100'}>Status</Th>
               </Tr>
             </Thead>
@@ -198,22 +199,21 @@ export default function Authorized() {
                       <Tr key={idx}>
                         <Td>{idx+1}</Td>
                         <Td>{i.name}</Td>
-                        <Td>{i.new_name}</Td>
                         <Td>{i.roll}</Td>
                         <Td>{i.college}</Td>
                         <Td>{i.course}&nbsp;{i.branch}</Td>
                         <Td>{i.sem}</Td>
-                        <Td>{i.gazette_no}</Td>
-                        <Td>{i.gazette_date}</Td>
-                        <Td><Link target='_blank' href={`/api/name_change/get_pdf?path=${i.year}/${i.reference_id}/application.pdf`}><AttachmentIcon /></Link></Td>
-                        <Td><Link target='_blank' href={`/api/name_change/get_pdf?path=${i.year}/${i.reference_id}/attachments.pdf`}><AttachmentIcon /></Link></Td>
+                        <Td>{i.mode}</Td>
+                        <Td>{i.grievance_type}</Td>
+                        <Td>{i.related_to}</Td>
+                        <Td>{i.grievance}</Td>
+
+                        {i.attachments!==''&&<Td><Link target='_blank' href={`/api/grievance/get_pdf?path=${i.year}/${i.reference_id}/attachments.pdf`}><AttachmentIcon /></Link></Td>}
                         <Td display={'flex'}>
                           <Select size='sm' w='110px' borderRightRadius={'none'} defaultValue={i.status_id}>
-                            <option style={{color: 'black'}} value={1}>File not uploaded</option>
-                            <option style={{color: 'black'}} value={2}>Pending</option>
-                            <option style={{color: 'black'}} value={3}>Approved</option>
-                            <option style={{color: 'black'}} value={4}>Cancelled</option>
-                            <option style={{color: 'black'}} value={5}>Time Exceeded</option>
+                            <option style={{color: 'black'}} value={1}>Pending</option>
+                            <option style={{color: 'black'}} value={2}>Closed</option>
+                          
                           </Select> 
                           <Button 
                             borderLeftRadius={'none'} 

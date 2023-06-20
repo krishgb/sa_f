@@ -10,6 +10,8 @@ export default function Demand() {
     const [table_data, set_table_data] = useState({ rows: [], cols: [] })
     const [year, set_year] = useState('Loading...')
     const [academic_years, set_academic_years] = useState([])
+    const [isodd, set_isodd] = useState(true)
+
 
 
 
@@ -29,7 +31,7 @@ export default function Demand() {
 
     const get_academic_years = async () => {
         try {
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'readmission/get_academic_years', { credentials: 'include' })
+            const request = await fetch('/api/readmission/get_academic_years', { credentials: 'include' })
 
             if (request.status === 401) {
                 navigate('/login', {
@@ -52,13 +54,13 @@ export default function Demand() {
     }
     const get_info = async () => {
         try {
-            const request = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_URL}readmission/info/${year}`,
+            const request = await fetch(`/api/readmission/info/${year}`,
                 {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ pending: pending, approved: approved }),
+                    body: JSON.stringify({ pending: pending, approved: approved,isodd:isodd  }),
                     credentials: 'include'
                 })
             const response = await request.json()
@@ -88,13 +90,13 @@ export default function Demand() {
             console.log(
                 'approve initiated'
             );
-            const request = await fetch(`${import.meta.env.VITE_REACT_APP_SERVER_URL}readmission/approve/${year}`,
+            const request = await fetch(`/api/readmission/approve/${year}`,
                 {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ status: status, batch: batch, pending: pending }),
+                    body: JSON.stringify({ status: status, batch: batch, pending: pending,isodd }),
                     credentials: 'include'
                 }
             )
@@ -121,7 +123,7 @@ export default function Demand() {
         if (year != 'Loading...' && year != '') {
             get_info()
         }
-    }, [year]
+    }, [year,isodd]
     )
     useEffect(() => {
         get_academic_years()
@@ -138,6 +140,14 @@ export default function Demand() {
                     })
                 }
             </Select>
+            <Select color='white' onChange={(e) => { set_isodd(e.target.value==='0') }} size='sm' width={'120px'} >
+
+<option style={{ color: 'black' }} value={0}>Odd</option>
+<option style={{ color: 'black' }} value={1}>Even</option>
+
+
+
+</Select>
 
             <TableContainer width={'700px'} mt={3} >
                 <Table variant={'simple'} colorScheme='green'>
@@ -193,7 +203,7 @@ export default function Demand() {
                                             </Button>
                                         </Td>
                                         <Td>
-                                            <Button as={Link} to={`/readmission?year=${year}&batch=${row.batch}`}>
+                                            <Button as={Link} to={`/readmission?year=${year}&batch=${row.batch}&isodd=${isodd}`}>
                                                 <ExternalLinkIcon color={'black'} />
                                             </Button>
                                         </Td>

@@ -65,7 +65,7 @@ export default function Signup(){
         
         try{
 
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'signup', {
+            const request = await fetch('/api/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

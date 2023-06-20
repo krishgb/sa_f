@@ -9,7 +9,6 @@ import {TableContainer, Table, Thead, Tbody, Tr, Th, Td} from '@chakra-ui/react'
 
 export default function TableUI(props) {
     const { headers_data, rows_data, children, set_selected_rows, set_visible_rows, editable, changeable, dependencies } = props
-
     const dependency_list = []
     if (changeable) {
         dependency_list.push(rows_data)

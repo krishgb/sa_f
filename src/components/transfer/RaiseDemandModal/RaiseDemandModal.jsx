@@ -1,19 +1,21 @@
-import { Button, FormControl, FormErrorMessage, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import { Button, FormControl, FormErrorMessage, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast } from "@chakra-ui/react"
 import { useRef,useState } from "react"
 
 
-export default function RaiseDemand({batch,year,data,name,user}) {
+export default function RaiseDemand({batch,year,data,name,user,isodd}) {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const reference_no_ref = useRef(null)
     const letter_no_ref = useRef(null)
     const due_date_ref = useRef(null)
+    const [loading_save, set_loading_save] = useState(false)
+    const toast = useToast()
 
     const save = async () => {
         console.log(`Transfer Model data ${data.length}`)
-        
+        set_loading_save(true)
         try{
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + 'transfer/demand', {
+            const request = await fetch('/api/transfer/demand', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -25,12 +27,31 @@ export default function RaiseDemand({batch,year,data,name,user}) {
                     batch,
                     year,
                     data,
-                    name
+                    name,
+                    isodd
                 }
                ),
                credentials: 'include'
             
             })
+
+            const response = await request.json()
+            if(response.success){
+                onClose()
+                toast({
+                    title: 'Demands Raised',
+                    status: 'success',
+                    isClosable: true,
+                })
+            }else{
+                toast({
+                    title: response.msg || response.message || 'Something went wrong',
+                    status: 'error',
+                    isClosable: true,
+                })
+                onClose()
+            }
+            set_loading_save(false)
         }catch(err){
             console.log(err)
         }
@@ -99,7 +120,7 @@ export default function RaiseDemand({batch,year,data,name,user}) {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={save}>
+                        <Button colorScheme='blue' mr={3} onClick={save} isLoading={loading_save} >
                             Save
                         </Button>
                         <Button onClick={onClose}>Cancel</Button>

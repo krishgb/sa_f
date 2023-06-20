@@ -12,7 +12,7 @@ export default function RaiseDemand({ batch, year, data, name ,admission_type}) 
 
     const save = async () => {
         try {
-            const request = await fetch(import.meta.env.VITE_REACT_APP_SERVER_URL + `rra/${admission_type}/demand`, {
+            const request = await fetch(`/api/rra/${admission_type}/demand`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
