@@ -16,12 +16,12 @@ export default function AcademicDetails() {
         >
             <Flex gap={12}>
                 <FormControl size={'sm'} isRequired >
-                    <FormLabel color='white' fontSize={'14px'} size={'sm'}>Name of the student</FormLabel>
+                    <FormLabel color='black' fontSize={'14px'} size={'sm'}>Name of the student</FormLabel>
                     <Input 
                         onChange={(e) => set_data('name', e.target.value)} 
                         fontSize={'14px'} 
                         border='1px solid #cccccc50' 
-                        color={'white'} 
+                        color={'black'} 
                         size='sm' 
                         placeholder='Enter your name'
                         defaultValue={entries.name} 
@@ -30,11 +30,11 @@ export default function AcademicDetails() {
 
 
                 <FormControl size={'sm'} isRequired>
-                    <FormLabel color='white' fontSize={'14px'} size={'sm'}>Roll number / Register number</FormLabel>
+                    <FormLabel color='black' fontSize={'14px'} size={'sm'}>Roll number / Register number</FormLabel>
                     <Input 
                         fontSize={'14px'} 
                         border='1px solid #cccccc50' 
-                        color={'white'} 
+                        color={'black'} 
                         size='sm' 
                         placeholder='Roll / Register number of the Student' 
                         onChange={(e) => set_data('rno', e.target.value)} 
@@ -47,12 +47,12 @@ export default function AcademicDetails() {
 
             <Flex gap={12}>
                 <FormControl size={'sm'} isRequired>
-                    <FormLabel color='white' fontSize={'14px'} size={'sm'}>Programme</FormLabel>
+                    <FormLabel color='black' fontSize={'14px'} size={'sm'}>Programme</FormLabel>
                     <Grid templateColumns={'.3fr 1fr'}>
                         <Select 
                             size='sm' 
                             border='1px solid #cccccc50' 
-                            color={'white'} 
+                            color={'black'} 
                             defaultValue={entries.programme}
                             onChange={(e) => set_data('programme', e.target.value)} 
                         >
@@ -62,7 +62,7 @@ export default function AcademicDetails() {
                         <Input 
                             fontSize={'14px'} 
                             border='1px solid #cccccc50' 
-                            color={'white'} 
+                            color={'black'} 
                             size='sm' 
                             placeholder='Course Programme' 
                             defaultValue={entries.course}
@@ -72,11 +72,11 @@ export default function AcademicDetails() {
                 </FormControl>
 
                 <FormControl size={'sm'} isRequired>
-                    <FormLabel color='white' fontSize={'14px'} size={'sm'}>Branch of Study</FormLabel>
+                    <FormLabel color='black' fontSize={'14px'} size={'sm'}>Branch of Study</FormLabel>
                     <Input 
                         fontSize={'14px'} 
                         border='1px solid #cccccc50' 
-                        color={'white'} 
+                        color={'black'} 
                         size='sm' 
                         placeholder='Branch of Study' 
                         onChange={(e) => set_data('branch', e.target.value)} 
@@ -91,10 +91,10 @@ export default function AcademicDetails() {
 
                 <FormControl size={'sm'} isRequired >
                     <Grid height={'100%'}>
-                        <FormLabel color='white' fontSize={'14px'} size={'sm'}>Mode of Study</FormLabel>
+                        <FormLabel color='black' fontSize={'14px'} size={'sm'}>Mode of Study</FormLabel>
                         <Select 
                             size='sm' mt={'6'} 
-                            border='1px solid #cccccc50' color={'white'}
+                            border='1px solid #cccccc50' color={'black'}
                             defaultValue={entries.mode}
                             onChange={(e) => set_data('mode', e.target.value)} 
                         >
@@ -106,7 +106,7 @@ export default function AcademicDetails() {
                 </FormControl>
 
                 <FormControl size={'sm'} isRequired>
-                    <FormLabel color='white' fontSize={'14px'} size={'sm'}>Month and year of admission to the Degree Programme (1<sup>st</sup> semester)</FormLabel>
+                    <FormLabel color='black' fontSize={'14px'} size={'sm'}>Month and year of admission to the Degree Programme (1<sup>st</sup> semester)</FormLabel>
                         <HStack>
                             <PinInput 
                                 otp 
@@ -115,10 +115,10 @@ export default function AcademicDetails() {
                                 defaultValue={entries.admission_month} 
                                 onChange={(e) => {set_data('admission_month',e)}}
                             > 
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="M" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="M" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="M" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="M" />
                             </PinInput>
-                            <Input fontSize={'14px'} color='white' size='sm' readOnly value='/' width='30px' />
+                            <Input fontSize={'14px'} color='black' size='sm' readOnly value='/' width='30px' />
                             <PinInput 
                                 otp 
                                 size={'sm'} 
@@ -126,10 +126,10 @@ export default function AcademicDetails() {
                                 defaultValue={entries.admission_year} 
                                 onChange={(e)=>{set_data('admission_year',e)}}
                             >
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
                             </PinInput>
                         </HStack>
                 </FormControl>
@@ -139,11 +139,11 @@ export default function AcademicDetails() {
 
 
             <FormControl size={'sm'} isRequired  >
-                <FormLabel color='white' fontSize={'14px'} size={'sm'}>Number of semesters completed</FormLabel>
+                <FormLabel color='black' fontSize={'14px'} size={'sm'}>Number of semesters completed</FormLabel>
                 <Input 
                     fontSize={'14px'} 
                     border='1px solid #cccccc50' 
-                    color={'white'} size='sm' 
+                    color={'black'} size='sm' 
                     onChange={(e)=>{set_data('sems_completed',e.target.value)}} 
                     placeholder='Number of semesters completed'  type='number' 
                     defaultValue={entries.sems_completed}    
@@ -152,7 +152,7 @@ export default function AcademicDetails() {
 
             <Flex gap={12}>
                 <FormControl size={'sm'} isRequired>
-                    <FormLabel color='white' fontSize={'14px'} size={'sm'}>From</FormLabel>
+                    <FormLabel color='black' fontSize={'14px'} size={'sm'}>From</FormLabel>
                         <HStack>
                             <PinInput 
                                 otp size={'sm'} 
@@ -160,26 +160,26 @@ export default function AcademicDetails() {
                                 defaultValue={entries.completed_from_month} 
                                 onChange={(e)=>{set_data('completed_from_month',e)}}
                             >
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="M" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="M" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="M" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="M" />
                             </PinInput>
-                            <Input fontSize={'14px'} color='white' size='sm' readOnly value='/' width='30px' />
+                            <Input fontSize={'14px'} color='black' size='sm' readOnly value='/' width='30px' />
                             <PinInput 
                                 otp size={'sm'} 
                                 placeholder="Y" 
                                 defaultValue={entries.completed_from_year} 
                                 onChange={(e)=>{set_data('completed_from_year',e)}}
                             >
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
                             </PinInput>
                         </HStack>
                 </FormControl>
 
                 <FormControl size={'sm'} isRequired>
-                    <FormLabel color='white' fontSize={'14px'} size={'sm'}>To</FormLabel>
+                    <FormLabel color='black' fontSize={'14px'} size={'sm'}>To</FormLabel>
                         <HStack>
                             <PinInput 
                                 otp 
@@ -188,10 +188,10 @@ export default function AcademicDetails() {
                                 defaultValue={entries.completed_to_month}
                                 onChange={(e)=>{set_data('completed_to_month',e)}}
                             >
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="M" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="M" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="M" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="M" />
                             </PinInput>
-                            <Input fontSize={'14px'} color='white' size='sm' readOnly value='/' width='30px' />
+                            <Input fontSize={'14px'} color='black' size='sm' readOnly value='/' width='30px' />
                             <PinInput 
                                 otp 
                                 size={'sm'} 
@@ -199,10 +199,10 @@ export default function AcademicDetails() {
                                 defaultValue={entries.completed_to_year}
                                 onChange={(e)=>{set_data('completed_to_year',e)}}
                             >
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
-                                <PinInputField border='1px solid #cccccc50' color={'white'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
+                                <PinInputField border='1px solid #cccccc50' color={'black'} placeholder="Y" />
                             </PinInput>
                         </HStack>
                 </FormControl>

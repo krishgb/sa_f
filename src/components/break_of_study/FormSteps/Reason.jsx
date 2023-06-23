@@ -15,7 +15,7 @@ export default function Reason() {
             border={'1px solid #cccccc50'}
             borderRadius={'5px'}
             boxShadow={'0 0 10px rgba(0, 0, 0, 0.1)'}
-            color={'white'}
+            color={'black'}
         >
             <Grid>
                 <FormControl isRequired>
@@ -56,7 +56,7 @@ export default function Reason() {
                                     <PinInputField border='1px solid #cccccc50' placeholder="M" />
                                     <PinInputField border='1px solid #cccccc50' placeholder="M" />
                                 </PinInput>
-                                <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
+                                <Input border='1px solid #cccccc50' color='black' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
                                 <PinInput 
                                     otp size={'sm'} 
                                     placeholder="Y" 
@@ -82,7 +82,7 @@ export default function Reason() {
                                     <PinInputField border='1px solid #cccccc50' placeholder="M" />
                                     <PinInputField border='1px solid #cccccc50' placeholder="M" />
                                 </PinInput>
-                                <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
+                                <Input border='1px solid #cccccc50' color='black' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
                                 <PinInput 
                                     otp size={'sm'} 
                                     placeholder="Y" 

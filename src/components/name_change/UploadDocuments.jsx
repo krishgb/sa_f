@@ -99,19 +99,19 @@ export default function UploadDocuments() {
             :
             <></>
         }
-        <Grid gap={4}  placeItems={'center'} p={10} border={'1px solid #cccccc50'}  borderRadius={'5px'} color={'white'}>
+        <Grid gap={4}  placeItems={'center'} p={10} border={'1px solid #cccccc50'}  borderRadius={'5px'}>
 
             <FormControl>
                 <FormLabel>Application ID</FormLabel>
-                <Input type='text' ref={app_id} size='sm' border={'1px solid #cccccc50'} placeholder='Enter your application ID' width={'100%'} color='white' />
+                <Input type='text' ref={app_id} size='sm' border={'1px solid #cccccc50'} placeholder='Enter your application ID' width={'100%'}  />
             </FormControl>
             <FormControl>
                 <FormLabel>Application</FormLabel>
-                <Input accept='application/pdf' type='file' ref={application} size='sm' border={'1px solid #cccccc50'} placeholder='Upload your documents' color='white' />
+                <Input accept='application/pdf' type='file' ref={application} size='sm' border={'1px solid #cccccc50'} placeholder='Upload your documents'  />
             </FormControl>
             <FormControl>
                 <FormLabel>TN Gazette PDF</FormLabel>
-                <Input accept='application/pdf' type='file' ref={gazette} size='sm' border={'1px solid #cccccc50'} placeholder='Upload your documents' color='white' />
+                <Input accept='application/pdf' type='file' ref={gazette} size='sm' border={'1px solid #cccccc50'} placeholder='Upload your documents'  />
             </FormControl>
             <center>
                 <Button type='submit' colorScheme='blue'>Submit</Button>

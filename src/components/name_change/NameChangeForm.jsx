@@ -99,32 +99,32 @@ function NameChangeForm() {
                 <></>
             }
             <Text
-                color='#fff'
                 textAlign={'center'}
                 mb={4}
-                fontSize={'1.2rem'}
+                fontSize={'1.3rem'}
+                fontWeight={'bold'}
             >
                 Name Change Application
             </Text>
-            <Grid w={'50%'} m='auto' gap={1}>
+            <Grid w={'50%'} m='auto' gap={1} color='black' boxShadow={'10px solid #000'}>
 
                 {/* <Text style={{color: 'white'}}>Visit this&nbsp;<a style={{textDecoration: 'underline', color: 'blue'}} target='_blank' href='https://www.annauniv.edu/dsa/assets/downloads/Application-Name%20Change.pdf'>link</a>&nbsp;to fill the form and upload it <a href='#signed_document' style={{color: 'blue', textDecoration: 'underline'}}>here</a>.</Text> */}
-                <form onSubmit={submit}>
+                <form onSubmit={submit} style={{boxShadow: '10px solid #000'}}>
 
                     <Grid
                         gap={'2rem'}
                         m={'auto'}
                         alignItems={'end'}
                         p={3}
-                        border={'1px solid #cccccc50'}
+                        border={'1px solid #cccccc'}
                         borderRadius={'5px'}
-                        color='white'
+                        
                     >
                         <Flex gap={12} justifyContent={'space-between'}>
                             <FormControl size='sm' isRequired isInvalid={false}>
                                 <FormLabel size='sm' fontSize={'14px'}>Student Name</FormLabel>
                                 <Input 
-                                    border='1px solid #cccccc50' 
+                                    border='1px solid #cccccc' 
                                     fontSize={'14px'} 
                                     size='sm' 
                                     placeholder='Name'
@@ -136,7 +136,7 @@ function NameChangeForm() {
                             <FormControl size='sm' isRequired>
                                 <FormLabel size='sm' fontSize={'14px'}>Roll / Register number</FormLabel>
                                 <Input 
-                                    border='1px solid #cccccc50' 
+                                    border='1px solid #cccccc' 
                                     fontSize={'14px'} 
                                     size='sm' 
                                     placeholder='Roll / Register number' 
@@ -148,7 +148,7 @@ function NameChangeForm() {
                             <FormControl size='sm' isRequired>
                                 <FormLabel size='sm' fontSize={'14px'}>Institution Name</FormLabel>
                                 <Input 
-                                    border='1px solid #cccccc50' 
+                                    border='1px solid #cccccc' 
                                     fontSize={'14px'} 
                                     size='sm' 
                                     placeholder='Institution Name' 
@@ -159,7 +159,7 @@ function NameChangeForm() {
                             <FormControl size='sm' isRequired>
                                 <FormLabel size='sm' fontSize={'14px'}>Course</FormLabel>
                                 <Input 
-                                    border='1px solid #cccccc50' 
+                                    border='1px solid #cccccc' 
                                     fontSize={'14px'} 
                                     size='sm' 
                                     placeholder='Course' 
@@ -172,7 +172,7 @@ function NameChangeForm() {
                             <FormControl size='sm' isRequired>
                                 <FormLabel size='sm' fontSize={'14px'}>Branch</FormLabel>
                                 <Input 
-                                    border='1px solid #cccccc50' 
+                                    border='1px solid #cccccc' 
                                     fontSize={'14px'} size='sm' 
                                     placeholder='Branch' 
                                     onChange={(e) => { change('branch', e.target.value) }} 
@@ -182,7 +182,7 @@ function NameChangeForm() {
                             <FormControl size='sm' isRequired>
                                 <FormLabel size='sm' fontSize={'14px'}>Semester</FormLabel>
                                 <Input 
-                                    border='1px solid #cccccc50' 
+                                    border='1px solid #cccccc' 
                                     fontSize={'14px'} 
                                     size='sm' 
                                     placeholder='Semester' 
@@ -195,7 +195,7 @@ function NameChangeForm() {
                             <FormControl size='sm' isRequired>
                                 <FormLabel size='sm' fontSize={'14px'}>New Name (in CAPITAL LETTERS)</FormLabel>
                                 <Input 
-                                    border='1px solid #cccccc50' 
+                                    border='1px solid #cccccc' 
                                     fontSize={'14px'} 
                                     size='sm' 
                                     placeholder='New Name' 
@@ -207,7 +207,7 @@ function NameChangeForm() {
                             <FormControl size='sm' isRequired>
                                 <FormLabel size='sm' fontSize={'14px'}>Email ID</FormLabel>
                                 <Input 
-                                    border='1px solid #cccccc50' 
+                                    border='1px solid #cccccc' 
                                     fontSize={'14px'} 
                                     size='sm' 
                                     placeholder='Email ID' 
@@ -222,7 +222,7 @@ function NameChangeForm() {
                             <FormControl size='sm' isRequired>
                                 <FormLabel size='sm' fontSize={'14px'}>Phone / Mobile number</FormLabel>
                                 <Input 
-                                    border='1px solid #cccccc50' 
+                                    border='1px solid #cccccc' 
                                     fontSize={'14px'} 
                                     size='sm' 
                                     placeholder='Phone / Mobile number' 
@@ -234,7 +234,7 @@ function NameChangeForm() {
                             <FormControl size='sm' isRequired>
                                 <FormLabel size='sm' fontSize={'14px'}>Tamil Nadu Government Gazette Page No. (that includes the name change)</FormLabel>
                                 <Input 
-                                    border='1px solid #cccccc50' 
+                                    border='1px solid #cccccc' 
                                     fontSize={'14px'} 
                                     size='sm' 
                                     placeholder='Gazette Page No' 
@@ -249,7 +249,7 @@ function NameChangeForm() {
                                 <FormLabel size='sm' fontSize={'14px'}>Date of release of Gazette</FormLabel>
                                 <Input 
                                     fontSize={'14px'} 
-                                    border={'1px solid #cccccc50'} 
+                                    border={'1px solid #cccccc'} 
                                     size='sm' 
                                     placeholder='Date of release of Gazette' 
                                     type='date' 
@@ -265,7 +265,7 @@ function NameChangeForm() {
                                 size='sm'
                                 backgroundColor={'white'}
                                 color='black'
-                                border='1px solid #cccccc50'
+                                border='1px solid #cccccc'
                                 fontWeight={'normal'}
                                 w='100%'
                             >

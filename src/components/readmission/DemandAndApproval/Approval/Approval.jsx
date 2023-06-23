@@ -131,7 +131,7 @@ export default function Demand() {
 
     return (
         <>
-            <Select onChange={(e) => { set_year(e.target.value) }} size='sm' width={'120px'} color={'white'} >
+            <Select onChange={(e) => { set_year(e.target.value) }} size='sm' width={'120px'} color={'black'} >
                 {
                     academic_years.map((year, i) => {
                         return (
@@ -140,14 +140,11 @@ export default function Demand() {
                     })
                 }
             </Select>
-            <Select color='white' onChange={(e) => { set_isodd(e.target.value==='0') }} size='sm' width={'120px'} >
 
-<option style={{ color: 'black' }} value={0}>Odd</option>
-<option style={{ color: 'black' }} value={1}>Even</option>
-
-
-
-</Select>
+            <Select color='black' onChange={(e) => { set_isodd(e.target.value==='0') }} size='sm' width={'120px'} >
+                <option style={{ color: 'black' }} value={0}>Odd</option>
+                <option style={{ color: 'black' }} value={1}>Even</option>
+            </Select>
 
             <TableContainer width={'700px'} mt={3} >
                 <Table variant={'simple'} colorScheme='green'>
@@ -166,8 +163,8 @@ export default function Demand() {
                             table_data.rows.map((row, i) => {
                                 return (
                                     <Tr key={i} border={'1px solid #ccc'}>
-                                        <Td color='white' textAlign={'center'}>{row.batch}</Td>
-                                        <Td color='white' textAlign={'center'}>{row.students}</Td>
+                                        <Td  textAlign={'center'}>{row.batch}</Td>
+                                        <Td  textAlign={'center'}>{row.students}</Td>
                                         <Td>
                                             <Tooltip
                                                 bg={'green.400'}

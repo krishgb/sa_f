@@ -5,7 +5,7 @@
   .filters{
     position: sticky;
     top: 0;
-    background-color: #24272a;
+    // background-color: #24272a;
 
     z-index: 500;
 
@@ -45,7 +45,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: #fff;
+        color: #000;
       }
   
       th{

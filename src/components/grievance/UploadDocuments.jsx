@@ -83,16 +83,16 @@ export default function UploadDocuments() {
             :
             <></>
         }
-        <Grid gap={4}  placeItems={'center'} p={10} border={'1px solid #cccccc50'}  borderRadius={'5px'} color={'white'}>
+        <Grid gap={4}  placeItems={'center'} p={10} border={'1px solid #cccccc50'}  borderRadius={'5px'} color={'black'}>
 
             <FormControl>
                 <FormLabel>Application ID</FormLabel>
-                <Input type='text' ref={app_id} size='sm' border={'1px solid #cccccc50'} placeholder='Enter your application ID' width={'100%'} color='white' />
+                <Input type='text' ref={app_id} size='sm' border={'1px solid #cccccc50'} placeholder='Enter your application ID' width={'100%'} color='black' />
             </FormControl>
          
             <FormControl>
                 <FormLabel>Attachments</FormLabel>
-                <Input accept='application/pdf' type='file' ref={attachments} size='sm' border={'1px solid #cccccc50'} placeholder='Upload your documents' color='white' />
+                <Input accept='application/pdf' type='file' ref={attachments} size='sm' border={'1px solid #cccccc50'} placeholder='Upload your documents' color='black' />
             </FormControl>
             <center>
                 <Button type='submit' colorScheme='blue'>Submit</Button>

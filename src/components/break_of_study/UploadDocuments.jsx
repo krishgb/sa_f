@@ -103,15 +103,15 @@ export default function UploadDocuments() {
 
             <FormControl>
                 <FormLabel>Application ID</FormLabel>
-                <Input type='text' ref={app_id} size='sm' border={'1px solid #cccccc50'} placeholder='Enter your application ID' width={'100%'} color='white' />
+                <Input type='text' ref={app_id} size='sm' border={'1px solid #cccccc50'} placeholder='Enter your application ID' width={'100%'} color='black' />
             </FormControl>
             <FormControl>
                 <FormLabel>Application</FormLabel>
-                <Input accept='application/pdf' type='file' ref={application} size='sm' border={'1px solid #cccccc50'} placeholder='Upload your documents' color='white' />
+                <Input accept='application/pdf' type='file' ref={application} size='sm' border={'1px solid #cccccc50'} placeholder='Upload your documents' color='black' />
             </FormControl>
             <FormControl>
                 <FormLabel>Attachments PDF</FormLabel>
-                <Input accept='application/pdf' type='file' ref={attachments} size='sm' border={'1px solid #cccccc50'} placeholder='Upload your documents' color='white' />
+                <Input accept='application/pdf' type='file' ref={attachments} size='sm' border={'1px solid #cccccc50'} placeholder='Upload your documents' color='black' />
             </FormControl>
             <center>
                 <Button type='submit' colorScheme='blue'>Submit</Button>

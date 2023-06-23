@@ -9,6 +9,8 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
+    Button,
+    Image,
 } from '@chakra-ui/react'
 import { lazy } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -22,49 +24,52 @@ export default function Header() {
     const { global_user, global_allowed_routes, global_is_admin, global_set_user } = useGlobalContext()
     const signout = () => {
         fetch('/api/signout', { credentials: 'include' })
-        .then(res => res.json())
-        .then(res => {
-            if (!res.success) {
-                throw new Error(res.msg)
-            }
-            localStorage.removeItem('user')
-            global_set_user(null)
-            navigate('/', { replace: true })
-        }).catch(err => console.log(err))
+            .then(res => res.json())
+            .then(res => {
+                if (!res.success) {
+                    throw new Error(res.msg)
+                }
+                localStorage.removeItem('user')
+                global_set_user(null)
+                navigate('/', { replace: true })
+            }).catch(err => console.log(err))
     }
 
     return (
         <Grid
-            templateColumns={'.2fr .6fr .2fr'}
+            templateColumns={'auto .8fr .2fr'}
             alignItems={'center'}
             justifyContent={'space-between'}
-
+            gap={3}
             w="100%"
             position={'sticky'}
             top={0}
             // backgroundColor="rgba(255, 255, 255, 0.95)" 
-            backgroundColor={'blackAlpha.900'}
-            // backdropFilter="saturate(180%) blur(5px)"
+            backdropFilter="saturate(180%) blur(5px)"
+            // backgroundColor={'blackAlpha.900'}
+            bgColor={'whiteAlpha.400'}
             zIndex={1000}
 
-            boxShadow={'0 0 10px #00000010'}
-            borderBottom={'1px solid #cccccc50'}
-            color='white'
-            p={3}
+            boxShadow={'0 0 10px #00000050'}
+            // borderBottom={'1px solid #aaa'}
+            // color='white'
+            color='black'
+            p={'2.5'}
             px={0}
         >
-            <GridItem display={'grid'} placeItems={'center'}>
+            <GridItem display={'grid'} placeItems={'center'} ml={4}>
                 <Flex alignItems={'center'} gap={2}>
                     <Flex gap={1}>
-                        <ChevronLeftIcon onClick={() => { window.history.back() }} transform={'scale(2)'} color='whiteAlpha.600' cursor={'pointer'} _hover={{ color: 'white' }} />
-                        <ChevronRightIcon onClick={() => { window.history.forward() }} transform={'scale(2)'} color='whiteAlpha.600' cursor={'pointer'} _hover={{ color: 'white' }} />
+                        <ChevronLeftIcon onClick={() => { window.history.back() }} transform={'scale(2)'} color='blackAlpha.500' cursor={'pointer'} _hover={{ color: 'black' }} />
+                        <ChevronRightIcon onClick={() => { window.history.forward() }} transform={'scale(2)'} color='blackAlpha.500' cursor={'pointer'} _hover={{ color: 'black' }} />
                     </Flex>
-                    <Text fontSize={'2xl'} textAlign={'center'} fontWeight={'semibold'} >Student Affairs</Text>
+                    <Image src={'images/anna_logo.png'} alt={'logo'} boxSize={'50px'} />
+                    <Text fontSize={'md'} textAlign={'left'} fontWeight={'bold'} ><Link as={NavLink} to='/'>Centre for Student Affairs <br /> Anna University</Link></Text>
                 </Flex>
             </GridItem>
 
             <GridItem
-                backgroundColor={global_allowed_routes.length ? '#3182ce' : 'transparent'}
+                backgroundColor={global_allowed_routes.length ? '#0000ff96' : 'transparent'}
                 p={1}
                 borderRadius={'50px'}
                 color='whitesmoke'
@@ -76,16 +81,26 @@ export default function Header() {
                         <Menu isLazy>
                             <MenuButton
                                 borderRadius={'50px'}
-                                _hover={{ color: '#000' }}
+                                // _hover={{ color: '#000' }}
                                 fontWeight={'500'}
-                                p={'1.5'}
-                                fontSize={'15px'}
+                                p={'1'}
+                                fontSize={'14px'}
                             >
                                 Transfer
                             </MenuButton>
                             <MenuList color='white' backgroundColor={'blackAlpha.800'} minWidth={'150px'}>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/transfer/view'>View</MenuItem>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/transfer/upload'>Upload</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/transfer/view'>View</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/transfer/upload'>Upload</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/transfer/add'>Add Manually</MenuItem>
                             </MenuList>
                         </Menu>
                     }
@@ -96,16 +111,22 @@ export default function Header() {
                         <Menu isLazy>
                             <MenuButton
                                 borderRadius={'50px'}
-                                _hover={{ color: '#000' }}
+                                // _hover={{ color: '#000' }}
                                 fontWeight={'500'}
-                                p={'1.5'}
-                                fontSize={'15px'}
+                                p={'1'}
+                                fontSize={'14px'}
                             >
                                 Readmission
                             </MenuButton>
                             <MenuList color='white' backgroundColor={'blackAlpha.800'} minWidth={'150px'}>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/readmission/view'>View</MenuItem>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/readmission/upload'>Upload</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/readmission/view'>View</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/readmission/upload'>Upload</MenuItem>
                             </MenuList>
                         </Menu>
 
@@ -116,16 +137,22 @@ export default function Header() {
                         <Menu isLazy>
                             <MenuButton
                                 borderRadius={'50px'}
-                                _hover={{ color: '#000' }}
+                                // _hover={{ color: '#000' }}
                                 fontWeight={'500'}
-                                p={'1.5'}
-                                fontSize={'15px'}
+                                p={'1'}
+                                fontSize={'14px'}
                             >
                                 R Cum T
                             </MenuButton>
                             <MenuList color='white' backgroundColor={'blackAlpha.800'} minWidth={'150px'}>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/rcumt/view'>View</MenuItem>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/rcumt/upload'>Upload</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/rcumt/view'>View</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/rcumt/upload'>Upload</MenuItem>
                             </MenuList>
                         </Menu>
                     }
@@ -136,16 +163,22 @@ export default function Header() {
                         <Menu isLazy>
                             <MenuButton
                                 borderRadius={'50px'}
-                                _hover={{ color: '#000' }}
+                                // _hover={{ color: '#000' }}
                                 fontWeight={'500'}
-                                p={'1.5'}
-                                fontSize={'15px'}
+                                p={'1'}
+                                fontSize={'14px'}
                             >
                                 RRA
                             </MenuButton>
                             <MenuList color='white' backgroundColor={'blackAlpha.800'} minWidth={'150px'}>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/rra/view'>View</MenuItem>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/rra/upload'>Upload</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/rra/view'>View</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/rra/upload'>Upload</MenuItem>
                             </MenuList>
                         </Menu>
                     }
@@ -155,16 +188,22 @@ export default function Header() {
                         <Menu isLazy>
                             <MenuButton
                                 borderRadius={'50px'}
-                                _hover={{ color: '#000' }}
+                                // _hover={{ color: '#000' }}
                                 fontWeight={'500'}
-                                p={'1.5'}
-                                fontSize={'15px'}
+                                p={'1'}
+                                fontSize={'14px'}
                             >
                                 Break of Study
                             </MenuButton>
                             <MenuList color='white' backgroundColor={'blackAlpha.800'} minWidth={'150px'}>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/break_of_study/view'>View</MenuItem>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/break_of_study/new'>New or Check Status</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/break_of_study/view'>View</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/break_of_study/new'>New or Check Status</MenuItem>
                             </MenuList>
                         </Menu>
                     }
@@ -174,16 +213,22 @@ export default function Header() {
                         <Menu isLazy>
                             <MenuButton
                                 borderRadius={'50px'}
-                                _hover={{ color: '#000' }}
+                                // _hover={{ color: '#000' }}
                                 fontWeight={'500'}
-                                p={'1.5'}
-                                fontSize={'15px'}
+                                p={'1'}
+                                fontSize={'14px'}
                             >
                                 Name Change
                             </MenuButton>
                             <MenuList color='white' backgroundColor={'blackAlpha.800'} minWidth={'150px'}>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/name_change/view'>View</MenuItem>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/name_change/new_or_check_status'>New or Check Status</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/name_change/view'>View</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/name_change/new_or_check_status'>New or Check Status</MenuItem>
                             </MenuList>
                         </Menu>
                     }
@@ -194,16 +239,21 @@ export default function Header() {
                         <Menu isLazy>
                             <MenuButton
                                 borderRadius={'50px'}
-                                _hover={{ color: '#000' }}
                                 fontWeight={'500'}
-                                p={'1.5'}
-                                fontSize={'15px'}
+                                p={'1'}
+                                fontSize={'14px'}
                             >
                                 Grievance
                             </MenuButton>
                             <MenuList color='white' backgroundColor={'blackAlpha.800'} minWidth={'150px'}>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/grievance/view'>View</MenuItem>
-                                <MenuItem backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/grievance/new_or_check_status'>New or Check Status</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/grievance/view'>View</MenuItem>
+                                <MenuItem
+                                    fontSize={'14px'}
+
+                                    backgroundColor='transparent' _hover={{ backgroundColor: 'black' }} as={NavLink} to='/grievance/new_or_check_status'>New or Check Status</MenuItem>
                             </MenuList>
                         </Menu>
                     }
@@ -216,42 +266,45 @@ export default function Header() {
                         global_user ?
                             <>
                                 <Link
-                                        as={NavLink}
-                                        to="/"
-                                        p={2}
-                                        _activeLink={{ color: 'blue' }}
-                                    >
-                                        Dashboard
-                                    </Link>
-                                    <Text
-                                        cursor={'pointer'}
-                                        title='Sign out'
-                                        p={2}
-                                        onClick={signout}
-                                    >
-                                        Sign out
-                                    </Text>
+                                    as={NavLink}
+                                    to="/"
+                                    p={2}
+                                    _activeLink={{ color: '#682bd7', fontWeight: 'bold', textDecorationColor: '#682bd7' }}
+                                    fontSize={'15px'}
+                                >
+                                    Dashboard
+                                </Link>
+                                <Text
+                                    cursor={'pointer'}
+                                    title='Sign out'
+                                    p={2}
+                                    onClick={signout}
+                                    fontSize={'15px'}
+                                    color={'#666'}
+                                >
+                                    Sign out
+                                </Text>
                             </>
                             :
-                            <>
+                            <Grid gap={4} gridTemplateColumns={'1fr 1fr'}>
                                 <Link
                                     as={NavLink}
-                                    to="/login"
+                                    to="login"
                                     p={2}
-                                    _activeLink={{ color: 'blue' }}
+                                    _active={{ textDecoration: 'underline' }}
                                 >
-                                    Staff Login
+                                    Login
                                 </Link>
-
                                 <Link
-                                as={NavLink}
-                                to="/signup"
-                                p={2}
-                                _activeLink={{ color: 'blue' }}
+                                    as={NavLink}
+                                    to="/signup"
+                                    p={2}
+                                    _active={{ textDecoration: 'underline' }}
                                 >
-                                    Staff Signup
+                                    Signup
                                 </Link>
-                            </>
+                            </Grid>
+
                     }
                 </Flex>
             </GridItem>

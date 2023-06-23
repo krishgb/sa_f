@@ -198,7 +198,7 @@ export default function RRAUploadTable( {admission_type} ) {
                     <FormLabel color={'white'}
                         fontSize={'1rem'} size={'sm'}>Batch</FormLabel>
                     <Input
-                        color='white'
+                        color='black'
                         borderRadius={'base'}
                         size={'sm'}
                         border={'1px'}
@@ -216,7 +216,7 @@ export default function RRAUploadTable( {admission_type} ) {
                     <FormLabel color='white'
                         fontSize={'1rem'} size={'sm'}>Academic Year</FormLabel>
                     <Input
-                        color='white'
+                        color='black'
                         borderRadius={'base'}
                         size={'sm'}
                         border={'1px'}

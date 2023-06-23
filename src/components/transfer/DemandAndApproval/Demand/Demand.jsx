@@ -133,7 +133,7 @@ export default function Demand() {
 
     return (
         <>
-            <Select color='white' onChange={(e) => { set_year(e.target.value) }} size='sm' width={'120px'} >
+            <Select color='black' onChange={(e) => { set_year(e.target.value) }} size='sm' width={'120px'} >
                 {
                     academic_years.map((year, i) => {
                         return (
@@ -143,7 +143,7 @@ export default function Demand() {
                 }
 
             </Select>
-            <Select color='white' onChange={(e) => { set_isodd(e.target.value === '0') }} size='sm' width={'120px'} >
+            <Select color='black' onChange={(e) => { set_isodd(e.target.value === '0') }} size='sm' width={'120px'} >
 
                 <option style={{ color: 'black' }} value={0}>Odd</option>
                 <option style={{ color: 'black' }} value={1}>Even</option>
@@ -169,8 +169,8 @@ export default function Demand() {
                             table_data.rows.reverse().map((row, i) => {
                                 return (
                                     <Tr key={i}>
-                                        <Td textAlign={'center'} color='white'>{row.batch}</Td>
-                                        <Td textAlign={'center'} color='white'>{row.students}</Td>
+                                        <Td textAlign={'center'} color='black'>{row.batch}</Td>
+                                        <Td textAlign={'center'} color='black'>{row.students}</Td>
                                         <Td>
 
                                             <Tooltip

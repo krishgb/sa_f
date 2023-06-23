@@ -136,7 +136,7 @@ export default function Authorized() {
         <Stack spacing={3}>
           <Select 
             onChange={(e) => {year_change(e.target.value)}} 
-            color={'white'} 
+            color={'black'} 
             w='80px' 
             defaultValue={years[0]} 
             size='sm'
@@ -150,14 +150,14 @@ export default function Authorized() {
           </Select>
         </Stack>
       </Box>
-      <Grid color='white'>
+      <Grid color='black'>
         <TableContainer 
-          border={'1px solid #cccccc50'} 
+          border={'1px solid #cccccc'} 
           py={4} 
           px={2}
           pt={0} 
           borderRadius={'5px'} 
-          maxH={600} 
+          // maxH={600} 
           overflowY={'scroll'}
           css={{
             '&::-webkit-scrollbar': {
@@ -169,7 +169,7 @@ export default function Authorized() {
               width: '6px',
             },
             '&::-webkit-scrollbar-thumb': {
-              background: '#cccccc50',
+              background: '#cccccc',
               borderRadius: '24px',
             },
           }}

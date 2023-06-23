@@ -151,17 +151,17 @@ export default function Upload() {
 
     return (
         <div style={{ width: '95%', margin: 'auto' }}>
-            <Text fontSize={'1.15rem'} color='white' mb={6}>
+            <Text fontSize={'1.15rem'} color='black' mb={6}>
                 Transfer <span style={{ color: 'teal', fontWeight: 'bold' }}>/</span> Upload New Batch
             </Text>
 
             <Flex gap={'1rem'} mb={'1'}>
                 <FormControl isInvalid={error_msgs[0]} size={'sm'} width={'200px'}>
-                    <FormLabel color={'white'}
+                    <FormLabel color={'black'}
                         fontSize={'1rem'} size={'sm'}>Sem Type</FormLabel>
                     <InputGroup size={'sm'} width={'auto'}>
                         <Select  size={'sm'} onChange={(e) => {set_isodd(e.target.value==='0')}} value={isodd} borderRightRadius={'5px'}
-                         color='white'
+                         color='black'
                          borderRadius={'base'}
                          border={'1px'}
                          type="number"
@@ -179,10 +179,10 @@ export default function Upload() {
                 </FormControl>
 
                 <FormControl isInvalid={error_msgs[0]} size={'sm'} width={'200px'}>
-                    <FormLabel color={'white'}
+                    <FormLabel color={'black'}
                         fontSize={'1rem'} size={'sm'}>Batch</FormLabel>
                     <Input
-                        color='white'
+                        color='black'
                         borderRadius={'base'}
                         size={'sm'}
                         border={'1px'}
@@ -197,10 +197,10 @@ export default function Upload() {
 
 
                 <FormControl isInvalid={error_msgs[1]} size={'sm'} width={'200px'}>
-                    <FormLabel color='white'
+                    <FormLabel color='black'
                         fontSize={'1rem'} size={'sm'}>Academic Year</FormLabel>
                     <Input
-                        color='white'
+                        color='black'
                         borderRadius={'base'}
                         size={'sm'}
                         border={'1px'}
@@ -214,7 +214,7 @@ export default function Upload() {
                 </FormControl>
 
                 <FormControl isInvalid={error_msgs[2]} width={'300px'}>
-                    <FormLabel color='white'
+                    <FormLabel color='black'
                         fontSize={'1rem'} size={'sm'}>Upload File</FormLabel>
                     <Button
                         _hover={{ backgroundColor: 'teal.500' }}
@@ -232,7 +232,7 @@ export default function Upload() {
                     </Button>
                     <FormErrorMessage>File not found</FormErrorMessage>
                     <Input
-                        color='white'
+                        color='black'
                         onChange={handle_file}
                         ref={file_ref}
                         size={'sm'}
@@ -249,7 +249,7 @@ export default function Upload() {
 
             {
                 data.rows.length === 0 ? null :
-                    <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                    <Suspense fallback={<div style={{ color: 'black' }}>Loading...</div>}>
                         <Table
                             headers_data={data.columns}
                             rows_data={data.rows}

@@ -9,7 +9,13 @@ export default function Layout({children}) {
         <>
             <Header />
 
-            <main style={{padding: '1rem', backgroundColor: '#24272a', minHeight: '90.7vh'}}>
+            <main 
+                style={{
+                    padding: '1rem', 
+                    // backgroundColor: '#24272a', 
+                    minHeight: '90.7vh'
+                }}
+            >
                 {children}
             </main>
 

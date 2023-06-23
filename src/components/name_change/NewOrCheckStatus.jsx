@@ -9,7 +9,7 @@ export default function NewOrCheckStatus() {
   return (
     <>
         <Tabs>
-            <TabList color={'white'}>
+            <TabList color={'black'}>
                 <Tab>Check Status</Tab>
                 <Tab>Upload Documents</Tab>
                 <Tab>New</Tab>

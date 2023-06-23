@@ -28,7 +28,7 @@ export default function BreakOfStudyForm() {
     return (
         <Data>
             <Box>
-                <Text color='white' textAlign={'center'} mt={4} fontSize={'1.2rem'}>Break of Study Application</Text>
+                <Text color='black' textAlign={'center'} mt={4} fontSize={'1.2rem'}>Break of Study Application</Text>
                 <Stepper index={activeStep} size={'sm'} w={'70%'} m={'auto'} mt={4}>
                     {steps.map((step, index) => (
                         <Step key={index} >
@@ -41,8 +41,8 @@ export default function BreakOfStudyForm() {
                             </StepIndicator>
 
                             <Box flexShrink='0'>
-                                <StepTitle style={{color: 'white'}}>{step.title}</StepTitle>
-                                <StepDescription style={{color: '#ffffff60'}}>{step.description}</StepDescription>
+                                <StepTitle style={{color: 'black'}}>{step.title}</StepTitle>
+                                <StepDescription style={{color: '#777'}}>{step.description}</StepDescription>
                             </Box>
 
                             <StepSeparator />

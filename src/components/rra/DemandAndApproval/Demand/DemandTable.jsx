@@ -128,10 +128,10 @@ useEffect(() => {
     get_academic_years()
  },[])
   return (
-    <Box>
-        <Text color='white'><strong>{admission_type.toUpperCase() }</strong></Text>
+    <Box color='black'>
+        <Text><strong>{admission_type.toUpperCase() }</strong></Text>
 
-        <Select color='white' onChange={(e) => {set_year(e.target.value)}} size='sm' width={'120px'} >
+        <Select onChange={(e) => {set_year(e.target.value)}} size='sm' width={'120px'} >
         {
                 academic_years.map((year, i) => {
                     return (
@@ -158,8 +158,8 @@ useEffect(() => {
                         table_data.rows.reverse().map((row, i) => {
                             return (
                                 <Tr key={i}>
-                                    <Td textAlign={'center'} color='white'>{row.batch}</Td>
-                                    <Td textAlign={'center'} color='white'>{row.students}</Td>
+                                    <Td textAlign={'center'} >{row.batch}</Td>
+                                    <Td textAlign={'center'} >{row.students}</Td>
                                     <Td>
                                         <Tooltip 
                                             bg={'green.400'} 

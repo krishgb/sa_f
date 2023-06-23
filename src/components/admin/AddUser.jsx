@@ -10,12 +10,13 @@ export default function AddUser(){
         designation: 'Staff',
         access_privileges: []
     })
+    console.log('add user')
 
     const toast = useToast()
 
     const body_schema = z.object({
         email: z.string().email(),
-        designation: z.enum(['Director', 'Deputy Director', 'Staff', 'Finance Clerk', 'Superintendent'])
+        designation: z.enum(['Director', 'Deputy Director', 'Staff', 'Finance Clerk', 'Superintendent','College'])
     })
 
     const add_user = async (e) => {
@@ -65,35 +66,38 @@ export default function AddUser(){
     }
 
     return (
-        <Box w={'400px'} m={'auto'} mt={12}>
-            <Text style={{color: 'white'}} fontSize={'2xl'} mb={12}>Add New User</Text>
+        <Box w={'400px'} m={'auto'} mt={4}>
+            <Text color={'black'} fontSize={'2xl'} fontWeight={'bold'} mb={4}>Add New User</Text>
 
             <form onSubmit={add_user}>
 
-                <Grid gap='4' border={'1px solid #cccccc50'} p={8} borderRadius={'5px'}>
+                <Grid gap='4' border={'1px solid #cccccc'} boxShadow={'bg'} p={8} borderRadius={'5px'} color='black'>
                     <FormControl size={'sm'} isRequired>
-                        <FormLabel size={'sm'} color={'white'}>Email</FormLabel>
+                        <FormLabel size={'sm'} >Email</FormLabel>
                         <Input 
                             size={'sm'} 
-                            color={'white'} 
+                             border={'1px solid #ccc'}
                             onChange={e => {set_state({...state, email: e.target.value})}} 
                             type='email' 
                             placeholder='Enter Email ID' 
+                            _placeholder={{opacity: 1, color: 'gray.500'}}
                         />
                     </FormControl>
 
                     <FormControl size={'sm'} isRequired>
-                        <FormLabel size={'sm'} color={'white'}>Designation</FormLabel>
+                        <FormLabel size={'sm'} >Designation</FormLabel>
                         <Select 
                             size={'sm'} 
                             onChange={e => {set_state({...state, designation: e.target.value})}} 
-                            color={'white'}
+                            border={'1px solid #ccc'}
+                            
                         >
                             <option style={{color: 'black'}} value='Staff'>Staff</option>
                             <option style={{color: 'black'}} value='Director'>Director</option>
                             <option style={{color: 'black'}} value='Deputy Director'>Deputy Director</option>
-                            <option style={{color: 'black'}} value='Finance Clerk'>Finance Clerk</option>
+                            {/* <option style={{color: 'black'}} value='Finance Clerk'>Finance Clerk</option> */}
                             <option style={{color: 'black'}} value='Superintendent'>Superintendent</option>
+                            <option style={{color: 'black'}} value='College'>College</option>
                         </Select>
                     </FormControl>
 
@@ -101,15 +105,23 @@ export default function AddUser(){
                     state.designation === 'Staff' &&
 
                     <FormControl size={'sm'} >
-                        <FormLabel size={'sm'} color={'white'}>Access to</FormLabel>
+                        <FormLabel size={'sm'} >Access to</FormLabel>
                         <CheckboxGroup 
                             colorScheme='green' 
                             defaultValue={[]} 
                             onChange={values => {set_state({...state, access_privileges: values})}}
                         >
-                            <Stack display={'flex'}>
+                            <Stack display={'flex'} >
                                 {['transfer', 'name_change', 'readmission', 'rra', 'break_of_study', 'grievance'].map((label, idx) => (
-                                    <Checkbox key={idx} color='white' value={label}>{label === 'rra' ? label.toUpperCase() :  label.split('_').map(i => i[0].toUpperCase() + i.slice(1)).join(' ')}</Checkbox>
+                                    <Checkbox 
+                                        key={idx}  
+                                        value={label}
+                                        border='1px solid #ccc'
+                                        p={1}
+                                        borderRadius={'5px'}
+                                    >
+                                        {label === 'rra' ? label.toUpperCase() :  label.split('_').map(i => i[0].toUpperCase() + i.slice(1)).join(' ')}
+                                    </Checkbox>
                                     ))
                             }
                             </Stack>
@@ -117,7 +129,7 @@ export default function AddUser(){
                     </FormControl>
                 }
 
-                    <Button type='submit' mt={4}>Add User</Button>
+                    <Button type='submit' colorScheme='black' backgroundColor={'lightskyblue'} mt={4}>Add User</Button>
                 </Grid>
             </form>
         

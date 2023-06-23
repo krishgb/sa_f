@@ -10,7 +10,7 @@ export default function DemandAndApproval() {
     <>
         <Tabs position="relative" colorScheme='teal' width={'95%'} m='auto'>
             
-            <TabList color={'white'}>
+            <TabList >
                 <Tab>Demand</Tab>
                 <Tab>Approval</Tab>
             </TabList>

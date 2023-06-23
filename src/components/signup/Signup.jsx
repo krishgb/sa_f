@@ -108,80 +108,115 @@ export default function Signup(){
 
 
     return (
-        <Box w='50%' m='auto'>
-            <Text color={'white'} textAlign={'center'} fontSize={'2xl'} mb={3} mt={2}>Create an account</Text>
+        <Box w='50%' m='auto' color='black'>
+            {/* <Text color={'white'} textAlign={'center'} fontSize={'2xl'} mb={3} mt={2}>Signup</Text> */}
+            <Text textAlign={'center'} fontSize={'3xl'} fontWeight={'bold'} mb={6} mt={12}>Sign-up</Text>
 
             <form onSubmit={signup}>
 
                 <Grid 
-                    border={'1px solid #cccccc50'}
+                    border={'1px solid #cccccc'}
                     borderRadius={'5px'}
                     p={8}
                     gap={8}  
                     m='auto'
                     templateColumns={'1fr 1fr'}
                     justifyContent={'end'}
+                    color='black'
+                    boxShadow={'lg'}
                 >
                     <FormControl isRequired size='sm' isInvalid={err_msgs.email.length > 0}>
-                        <FormLabel color='white' size={'sm'}>Email</FormLabel>
-                        <Input ref={email_ref} border={'1px solid #cccccc50'} borderRadius={'2px'} size={'sm'} color='white' type='email' placeholder="Enter your email address" />
+                        <FormLabel  size={'sm'}>Email</FormLabel>
+                        <Input 
+                            ref={email_ref} 
+                            border={'1px solid #cccccc'} 
+                            borderRadius={'2px'} 
+                            size={'sm'}
+                            type='email' 
+                            placeholder="Enter your email address" 
+                            _placeholder={{color: 'gray.500'}}    
+                        />
                         <FormErrorMessage>{err_msgs.email}</FormErrorMessage>
                     </FormControl>
 
                     <FormControl isRequired size='sm' isInvalid={err_msgs.fullname.length > 0}>
-                        <FormLabel color='white' size={'sm'}>Full Name</FormLabel>
-                        <Input ref={fullname_ref} border={'1px solid #cccccc50'} borderRadius={'2px'} size={'sm'} color='white' type='text' placeholder="Enter your name" />
+                        <FormLabel  size={'sm'}>Full Name</FormLabel>
+                        <Input 
+                            ref={fullname_ref} 
+                            border={'1px solid #cccccc'} 
+                            borderRadius={'2px'} 
+                            size={'sm'} 
+                            type='text' 
+                            placeholder="Enter your name" 
+                            _placeholder={{color: 'gray.500'}}
+                        />
                         <FormErrorMessage>{err_msgs.fullname}</FormErrorMessage>
                     </FormControl>
 
                     <FormControl isRequired size='sm' isInvalid={confirm_password_error}>
-                        <FormLabel color='white' size={'sm'}>Password</FormLabel>
-                        <Input ref={password_ref} minLength={8} border={'1px solid #cccccc50'} borderRadius={'2px'} size={'sm'} color='white' type='password' placeholder="Create a new password"
+                        <FormLabel  size={'sm'}>Password</FormLabel>
+                        <Input 
+                            ref={password_ref} 
+                            minLength={8} 
+                            border={'1px solid #cccccc'} 
+                            borderRadius={'2px'} size={'sm'}  
+                            type='password' 
+                            placeholder="Create a new password"
+                            _placeholder={{color: 'gray.500'}}
                             onChange={e => {set_confirm_password_error(confirm_password_ref.current.value !== e.target.value)}}
                         />
                         <FormErrorMessage>Password doesn't match</FormErrorMessage>
                     </FormControl>
 
                     <FormControl isRequired size='sm' isInvalid={confirm_password_error}>
-                        <FormLabel color='white' size={'sm'}>Confirm Password</FormLabel>
-                        <Input border={'1px solid #cccccc50'} borderRadius={'2px'} size={'sm'} color='white' type='password' placeholder="Re-enter the password"
-                        ref={confirm_password_ref}
+                        <FormLabel  size={'sm'}>Confirm Password</FormLabel>
+                        <Input 
+                            border={'1px solid #cccccc'} 
+                            borderRadius={'2px'} 
+                            size={'sm'}  
+                            type='password' 
+                            placeholder="Re-enter the password"
+                            _placeholder={{color: 'gray.500'}}
+                            ref={confirm_password_ref}
                             onChange={e => {set_confirm_password_error(password_ref.current.value !== e.target.value)}}
                         />
                         <FormErrorMessage>Password doesn't match</FormErrorMessage>
                     </FormControl>
 
                     <FormControl isRequired size='sm' isInvalid={err_msgs.dob.length > 0}>
-                        <FormLabel color='white' size={'sm'}>Date of Birth</FormLabel>
-                        <Input ref={dob_ref} border={'1px solid #cccccc50'} borderRadius={'2px'} size={'sm'} color='white' type='date' />
+                        <FormLabel  size={'sm'}>Date of Birth</FormLabel>
+                        <Input ref={dob_ref} border={'1px solid #cccccc'} borderRadius={'2px'} size={'sm'}  type='date' />
                         <FormErrorMessage>{err_msgs.dob}</FormErrorMessage>
                     </FormControl>
 
                     <FormControl isRequired size='sm' isInvalid={err_msgs.phone.length > 0} >
-                        <FormLabel color='white' size={'sm'}>Phone / Mobile number</FormLabel>
+                        <FormLabel  size={'sm'}>Phone / Mobile number</FormLabel>
                         <Grid templateColumns={'.2fr .8fr'}>
-                            <Input border={'1px solid #cccccc50'} borderRadius={'2px'} readOnly size={'sm'} color='white' backgroundColor={'#cccccc10'} type='text' defaultValue='+91' />
-                            <Input ref={phone_ref} border={'1px solid #cccccc50'} borderRadius={'2px'} size={'sm'} color='white' type='number' placeholder="Enter your Phone / Mobile number" />
+                            <Input border={'1px solid #cccccc'} borderRadius={'2px'} readOnly size={'sm'}  backgroundColor={'#cccccc10'} type='text' defaultValue='+91' />
+                            <Input ref={phone_ref} border={'1px solid #cccccc'} borderRadius={'2px'} size={'sm'}  type='number'  
+                            _placeholder={{color: 'gray.500'}}
+                            
+                            placeholder="Enter your Phone / Mobile number" />
                         </Grid>
                         <FormErrorMessage>{err_msgs.phone}</FormErrorMessage>
                     </FormControl>
 
                     {/* <FormControl size='sm'>
-                        <FormLabel color='white' size={'sm'}>Upload your image</FormLabel>
+                        <FormLabel  size={'sm'}>Upload your image</FormLabel>
                         <Input 
                             onChange={change_image} 
                             accept="image/*" 
-                            border={'1px solid #cccccc50'} 
+                            border={'1px solid #cccccc'} 
                             borderRadius={'2px'} 
                             size={'sm'} 
-                            color='white' 
+                             
                             type='file' 
                             />
                     </FormControl>
 
                     <Image 
                         p={5}
-                        border={'1px solid #cccccc50'}
+                        border={'1px solid #cccccc'}
                         borderRadius={'5px'}
                         src={img_src} 
                         width={'250px'}
@@ -190,26 +225,26 @@ export default function Signup(){
                     
                     <Button 
                         type='reset' 
-                        size='sm'
+                        size='md'
                         width='100%' 
-                        backgroundColor={'transparent'} 
-                        color='red' 
-                        border='1px solid red' 
-                        fontWeight={'normal'}
+                        // colorScheme='green' 
+                        backgroundColor={'red'}
+                        // border='1px solid lightgreen'
+                        color='white'
+                        fontWeight={'bold'}
                         _hover={{backgroundColor: 'red', color: 'white' }}
                     >
                         Reset
                     </Button>
                     <Button 
                         type='submit' 
-                        size='sm'
+                        size='md'
                         width='100%' 
-                        // colorScheme='green' 
-                        backgroundColor={'transparent'}
-                        border='1px solid lightgreen'
-                        color='lightgreen'
-                        fontWeight={'normal'}
-                        _hover={{backgroundColor: 'lightgreen', color: 'black'}}
+                        backgroundColor={'green'}
+                        // border='1px solid lightgreen'
+                        color='white'
+                        fontWeight={'bold'}
+                        // _hover={{backgroundColor: 'lightskyblue', color: 'black'}}
                     >
                         Submit
                     </Button>

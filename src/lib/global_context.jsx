@@ -30,6 +30,7 @@ export default function Global({children}){
     const [global_user, global_set_user] = useState(false);
     const [global_allowed_routes, global_set_allowed_routes] = useState([])
     const [global_is_admin, global_set_is_admin] = useState(false)
+    const [global_is_college, global_set_is_college] = useState(false)
 
     const ACCESS_PRIVILEGES = {
         1: 'transfer',
@@ -37,7 +38,8 @@ export default function Global({children}){
         3: 'break_of_study',
         4: 'rra',
         5: 'name_change',
-        6: 'grievance'
+        6: 'grievance',
+        7: 'r_cum_t',
     }
 
     const DESIGNATION = {
@@ -66,14 +68,17 @@ export default function Global({children}){
         let allowed_routes = Object.values(ACCESS_PRIVILEGES);
         if(designation.name === 'Director' || designation.name === 'Deputy Director' || designation.name === 'admin'){
             global_set_is_admin(true)
-        }
-        else {
+        }else if (designation.name === 'College'){
+            global_set_is_college(true)
+            allowed_routes = []
+        }else {
             allowed_routes = privileges.map(i => ACCESS_PRIVILEGES[i]);
             global_set_is_admin(false)
         }
         global_set_allowed_routes(allowed_routes);
 
     }, [global_user])
+
 
 
     useEffect(() => {
@@ -88,7 +93,7 @@ export default function Global({children}){
 
 
     return (
-        <GlobalContext.Provider value={{global_user, global_set_user, global_allowed_routes, global_is_admin}}>
+        <GlobalContext.Provider value={{global_user, global_set_user, global_allowed_routes, global_is_admin, global_is_college}}>
             {children}
         </GlobalContext.Provider>
     )

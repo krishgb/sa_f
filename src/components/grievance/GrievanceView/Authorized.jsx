@@ -136,7 +136,7 @@ export default function Authorized() {
         <Stack spacing={3}>
           <Select 
             onChange={(e) => {year_change(e.target.value)}} 
-            color={'white'} 
+            color={'black'} 
             w='80px' 
             defaultValue={years[0]} 
             size='sm'
@@ -150,7 +150,7 @@ export default function Authorized() {
           </Select>
         </Stack>
       </Box>
-      <Grid color='white'>
+      <Grid color='black'>
         <TableContainer 
           border={'1px solid #cccccc50'} 
           py={4} 

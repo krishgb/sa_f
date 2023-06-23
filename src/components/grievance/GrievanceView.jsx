@@ -7,12 +7,8 @@ export default function GrievanceView() {
 
     return (
         <>
-                <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                <Suspense fallback={<div style={{ color: 'black' }}>Loading...</div>}>
                     <Authorized />
-                </Suspense>
-                :
-                <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
-                    <UnAuthorized />
                 </Suspense>
         </>
     )

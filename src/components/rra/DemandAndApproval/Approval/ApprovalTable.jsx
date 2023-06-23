@@ -122,9 +122,9 @@ export default function Demand({admission_type}) {
     }, [])
 
     return (
-        <Box>
-            <Text color='white'><strong>{admission_type.toUpperCase() }</strong></Text>
-            <Select onChange={(e) => { set_year(e.target.value) }} size='sm' width={'120px'} color={'white'} >
+        <Box color='black'>
+            <Text><strong>{admission_type.toUpperCase() }</strong></Text>
+            <Select onChange={(e) => { set_year(e.target.value) }} size='sm' width={'120px'}>
                 {
                     academic_years.map((year, i) => {
                         return (
@@ -151,8 +151,8 @@ export default function Demand({admission_type}) {
                             table_data.rows.map((row, i) => {
                                 return (
                                     <Tr key={i} border={'1px solid #ccc'}>
-                                        <Td color='white' textAlign={'center'}>{row.batch}</Td>
-                                        <Td color='white' textAlign={'center'}>{row.students}</Td>
+                                        <Td textAlign={'center'}>{row.batch}</Td>
+                                        <Td textAlign={'center'}>{row.students}</Td>
                                         <Td>
                                             <Tooltip
                                                 bg={'green.400'}

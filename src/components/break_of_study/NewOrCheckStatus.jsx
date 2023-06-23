@@ -8,7 +8,7 @@ const UploadDocuments = lazy(() => import('./UploadDocuments'))
 export default function NewOrCheckStatus() {
   return (
     <>
-        <Tabs color={'white'}>
+        <Tabs color={'black'}>
             <TabList>
                 <Tab>Check Status</Tab>
                 <Tab>Upload Documents</Tab>

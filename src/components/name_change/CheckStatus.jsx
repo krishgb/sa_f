@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Card, CardBody, CardHeader, Flex, FormControl, FormLabel, Heading, Input, Table, TableContainer, Tbody, Thead, Tr, Th, Td } from '@chakra-ui/react'
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Card, CardBody, CardHeader, Flex, FormControl, FormLabel, Heading, Input, Table, TableContainer, Tbody, Thead, Tr, Th, Td, Grid } from '@chakra-ui/react'
 import React, { memo, useRef, useState } from 'react'
 
 function CheckStatus() {
@@ -61,11 +61,11 @@ function CheckStatus() {
 
 
   return (
-    <>
+    <Grid color='black'>
       <FormControl>
-        <FormLabel color='white'>Application ID</FormLabel>
+        <FormLabel >Application ID</FormLabel>
         <Flex gap={3} mb={5}>
-          <Input maxW='300px' ref={application_id_ref} type='text' size='sm' border={'1px solid #cccccc50'} placeholder='Enter your application ID' color='white' />
+          <Input maxW='300px' ref={application_id_ref} type='text' size='sm' border={'1px solid #cccccc50'} placeholder='Enter your application ID'  />
           <Button colorScheme='blue' size='sm' borderRadius={'2px'}  onClick={check_status}>Check</Button>
         </Flex>
       </FormControl>
@@ -224,7 +224,7 @@ function CheckStatus() {
           // </Box>
         }
       </Box>
-    </>
+    </Grid>
   )
 }
 

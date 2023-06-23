@@ -14,7 +14,7 @@ export default function BreakOfStudyDetails() {
             borderRadius={'5px'}
             boxShadow={'0 0 10px rgba(0, 0, 0, 0.1)'}
         // backgroundColor={'black'}
-        color='white'
+        color='black'
         >
             <FormControl isRequired>
                 <FormLabel size='sm' fontSize={'14px'}>Semester, Duration & Period for which the Break of study is sought for</FormLabel>
@@ -51,7 +51,7 @@ export default function BreakOfStudyDetails() {
                                 <PinInputField border='1px solid #cccccc50' placeholder="M" />
                                 <PinInputField border='1px solid #cccccc50' placeholder="M" />
                             </PinInput>
-                            <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
+                            <Input border='1px solid #cccccc50' color='black' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
                             <PinInput 
                                 otp 
                                 size={'sm'} 
@@ -80,7 +80,7 @@ export default function BreakOfStudyDetails() {
                                 <PinInputField border='1px solid #cccccc50' placeholder="M" />
                                 <PinInputField border='1px solid #cccccc50' placeholder="M" />
                             </PinInput>
-                            <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
+                            <Input border='1px solid #cccccc50' color='black' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
                             <PinInput 
                                 otp 
                                 size={'sm'} 
@@ -198,7 +198,7 @@ export default function BreakOfStudyDetails() {
                                 <PinInputField border='1px solid #cccccc50' placeholder="M" />
                                 <PinInputField border='1px solid #cccccc50' placeholder="M" />
                             </PinInput>
-                            <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
+                            <Input border='1px solid #cccccc50' color='black' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
                             <PinInput 
                                 otp size={'sm'} 
                                 placeholder="Y" 
@@ -224,7 +224,7 @@ export default function BreakOfStudyDetails() {
                                 <PinInputField border='1px solid #cccccc50' placeholder="M" />
                                 <PinInputField border='1px solid #cccccc50' placeholder="M" />
                             </PinInput>
-                            <Input border='1px solid #cccccc50' color='white' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
+                            <Input border='1px solid #cccccc50' color='black' size='sm' fontSize={'14px'} readOnly value='/' width='30px' />
                             <PinInput 
                                 otp size={'sm'} 
                                 placeholder="Y" 

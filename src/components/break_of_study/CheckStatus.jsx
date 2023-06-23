@@ -63,9 +63,9 @@ function CheckStatus() {
   return (
     <>
       <FormControl>
-        <FormLabel color='white'>Application ID</FormLabel>
+        <FormLabel color='black'>Application ID</FormLabel>
         <Flex gap={3} mb={5}>
-          <Input maxW='300px' ref={application_id_ref} type='text' size='sm' border={'1px solid #cccccc50'} placeholder='Enter your application ID' color='white' />
+          <Input maxW='300px' ref={application_id_ref} type='text' size='sm' border={'1px solid #cccccc50'} placeholder='Enter your application ID' color='black' />
           <Button colorScheme='blue' size='sm' borderRadius={'2px'}  onClick={check_status}>Check</Button>
         </Flex>
       </FormControl>

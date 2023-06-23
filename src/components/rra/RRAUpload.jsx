@@ -11,7 +11,7 @@ export default function RRAUpload() {
     return (
         <>
             <Text 
-                color='white' 
+                color='black' 
                 width={'95%'} 
                 m='auto'
                 mb={2}
@@ -28,20 +28,20 @@ export default function RRAUpload() {
             <RadioGroup 
                 defaultValue='ug' 
                 onChange={(e)=>{set_admission_type(e)}}
-                color='white' 
+                color='black' 
                 width={'95%'} 
                 m='auto'
                 mb={2}
             >
                 <Stack spacing={5} direction='row'>
-                    <Radio color='white' colorScheme='blue' value='ug'>
-                        <Text color='white'>UG</Text>
+                    <Radio color='black' colorScheme='blue' value='ug'>
+                        <Text color='black'>UG</Text>
                     </Radio>
-                    <Radio color='white' colorScheme='blue' value='pg'>
-                        <Text color='white'>PG</Text>
+                    <Radio color='black' colorScheme='blue' value='pg'>
+                        <Text color='black'>PG</Text>
                     </Radio>
-                    <Radio color='white' colorScheme='blue' value='le'>
-                        <Text color='white'>LE</Text>
+                    <Radio color='black' colorScheme='blue' value='le'>
+                        <Text color='black'>LE</Text>
                     </Radio>
                 </Stack>
             </RadioGroup>

@@ -39,7 +39,8 @@ export default function GrievanceForm() {
         <Grid w={'50%'} m='auto' gap={1}>
             <Text 
                 fontSize={'1.2rem'} 
-                color='#fff' 
+                color='#000'
+                fontWeight={'bold'} 
                 textAlign={'center'}
                 // my={2}
             >
@@ -52,21 +53,22 @@ export default function GrievanceForm() {
                     m={'auto'} 
                     alignItems={'end'} 
                     p={3} 
-                    border={'1px solid #cccccc50'}
+                    border={'1px solid #cccccc'}
                     // boxShadow={'0 0 10px rgba(0, 0, 0, 0.1)'}
                     borderRadius={'5px'}
                     // backgroundColor={'yellow.300'}
-                    color='white'
+                    color='black'
+                    boxShadow={'0 10px 15px #ddd'}
                 >
                     <Flex gap={12} justifyContent={'space-between'}>
                         <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Name</FormLabel>
-                            <Input border='1px solid #cccccc50' fontSize={'14px'} size='sm' placeholder='Name' onChange={(e)=>{setForm({...form,name:e.target.value})}}/>
+                            <Input border='1px solid #cccccc' fontSize={'14px'} size='sm' placeholder='Name' onChange={(e)=>{setForm({...form,name:e.target.value})}}/>
                         </FormControl>
 
                         <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Roll / Register number</FormLabel>
-                            <Input border='1px solid #cccccc50' fontSize={'14px'} size='sm' placeholder='Roll / Register number' onChange={(e)=>{setForm({...form,roll:e.target.value})}}/>
+                            <Input border='1px solid #cccccc' fontSize={'14px'} size='sm' placeholder='Roll / Register number' onChange={(e)=>{setForm({...form,roll:e.target.value})}}/>
                         </FormControl>
                     </Flex>
 
@@ -75,17 +77,17 @@ export default function GrievanceForm() {
                     <Flex gap={12} justifyContent={'space-between'}>
                         <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Institution Name</FormLabel>
-                            <Input border='1px solid #cccccc50' fontSize={'14px'} size='sm' placeholder='Institution Name' onChange={(e)=>{setForm({...form,college:e.target.value})}}/>
+                            <Input border='1px solid #cccccc' fontSize={'14px'} size='sm' placeholder='Institution Name' onChange={(e)=>{setForm({...form,college:e.target.value})}}/>
                         </FormControl>
 
                         <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Course</FormLabel>
                             <Grid size='sm' templateColumns={'.25fr .75fr'}>
-                                <Select size={'sm'} border={'1px solid #cccccc50'} onChange={(e)=>{setForm({...form,programme:e.target.value})}}>
+                                <Select size={'sm'} border={'1px solid #cccccc'} onChange={(e)=>{setForm({...form,programme:e.target.value})}}>
                                     <option style={{color: 'black'}} value="UG">UG</option>
                                     <option style={{color: 'black'}} value="PG">PG</option>
                                 </Select>
-                                <Input border='1px solid #cccccc50' fontSize={'14px'} size='sm' placeholder='Course' onChange={(e)=>{setForm({...form,course:e.target.value})}}/>
+                                <Input border='1px solid #cccccc' fontSize={'14px'} size='sm' placeholder='Course' onChange={(e)=>{setForm({...form,course:e.target.value})}}/>
                             </Grid>
                         </FormControl>
                     </Flex>
@@ -95,13 +97,13 @@ export default function GrievanceForm() {
                     <Flex gap={12} justifyContent={'space-between'}>
                         <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Branch</FormLabel>
-                            <Input border='1px solid #cccccc50' fontSize={'14px'} size='sm' placeholder='Branch' onChange={(e)=>{setForm({...form,branch:e.target.value})}}/>
+                            <Input border='1px solid #cccccc' fontSize={'14px'} size='sm' placeholder='Branch' onChange={(e)=>{setForm({...form,branch:e.target.value})}}/>
                         </FormControl>
 
                         <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Semester & Mode of Study</FormLabel>
                             <Grid templateColumns={'.5fr .5fr'}>
-                                <Select size='sm' border='1px solid #cccccc50' onChange={(e)=>{setForm({...form,sem:e.target.value})}}>
+                                <Select size='sm' border='1px solid #cccccc' onChange={(e)=>{setForm({...form,sem:e.target.value})}}>
                                     <option style={{color: 'black'}} value="1">1</option>
                                     <option style={{color: 'black'}} value="2">2</option>
                                     <option style={{color: 'black'}} value="3">3</option>
@@ -111,7 +113,7 @@ export default function GrievanceForm() {
                                     <option style={{color: 'black'}} value="7">7</option>
                                     <option style={{color: 'black'}} value="8">8</option>
                                 </Select>
-                                <Select size='sm' border='1px solid #cccccc50' onChange={(e)=>{setForm({...form,mode:e.target.value})}}>
+                                <Select size='sm' border='1px solid #cccccc' onChange={(e)=>{setForm({...form,mode:e.target.value})}}>
                                     <option style={{color: 'black'}} value="regular">Full Time Regular</option>
                                     <option style={{color: 'black'}} value="ss">Full Time SS</option>
                                     <option style={{color: 'black'}} value="part_time">Part time</option>
@@ -127,8 +129,8 @@ export default function GrievanceForm() {
                             
 
                                 <FormLabel size='sm' fontSize={'14px'}>Grievance Type</FormLabel>
-                                {/* <Input border='1px solid #cccccc50' fontSize={'14px'} size='sm' placeholder='New Name' /> */}
-                                <Select size='sm' border='1px solid #cccccc50' onChange={(e)=>{setForm({...form,grievance_type:e.target.value})}}>
+                                {/* <Input border='1px solid #cccccc' fontSize={'14px'} size='sm' placeholder='New Name' /> */}
+                                <Select size='sm' border='1px solid #cccccc' onChange={(e)=>{setForm({...form,grievance_type:e.target.value})}}>
                                     <option style={{color: 'black'}} value="academic">Academic</option>
                                     <option style={{color: 'black'}} value="non_academic">Non Academic</option>
                                 </Select>
@@ -136,8 +138,8 @@ export default function GrievanceForm() {
 
                         <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Related To</FormLabel>
-                            {/* <Input border='1px solid #cccccc50' fontSize={'14px'} size='sm' placeholder='Email ID' type='email' /> */}
-                            <Select size='sm' border='1px solid #cccccc50' onChange={(e)=>{setForm({...form,related_to:e.target.value})}}>
+                            {/* <Input border='1px solid #cccccc' fontSize={'14px'} size='sm' placeholder='Email ID' type='email' /> */}
+                            <Select size='sm' border='1px solid #cccccc' onChange={(e)=>{setForm({...form,related_to:e.target.value})}}>
                                 {
                                     form.grievance_type === 'academic' ?
                                     <>
@@ -174,12 +176,12 @@ export default function GrievanceForm() {
                     <Flex gap={12} justifyContent={'space-between'}>
                         <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Address</FormLabel>
-                            <Textarea border='1px solid #cccccc50' fontSize={'14px'} size='sm' placeholder='Address' onChange={(e)=>{setForm({...form,address:e.target.value})}}/>
+                            <Textarea border='1px solid #cccccc' fontSize={'14px'} size='sm' placeholder='Address' onChange={(e)=>{setForm({...form,address:e.target.value})}}/>
                         </FormControl>
 
                         <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Grievance</FormLabel>
-                            <Textarea border='1px solid #cccccc50' fontSize={'14px'} size='sm' placeholder='Grievance' onChange={(e)=>{setForm({...form,grievance:e.target.value})}}/>
+                            <Textarea border='1px solid #cccccc' fontSize={'14px'} size='sm' placeholder='Grievance' onChange={(e)=>{setForm({...form,grievance:e.target.value})}}/>
                         </FormControl>
                     </Flex>
 
@@ -189,7 +191,7 @@ export default function GrievanceForm() {
 
                         {/* <FormControl size='sm' isRequired>
                             <FormLabel size='sm' fontSize={'14px'}>Date of release of Gazette</FormLabel>
-                            <Input fontSize={'14px'} border={'1px solid #cccccc50'} size='sm' placeholder='Date of release of Gazette' type='date'/>
+                            <Input fontSize={'14px'} border={'1px solid #cccccc'} size='sm' placeholder='Date of release of Gazette' type='date'/>
                         </FormControl> */}
 
                         {/* <Grid templateColumns={'1fr 1fr'} gap={4} width='80%' m='auto' mt={8} > */}
@@ -210,10 +212,10 @@ export default function GrievanceForm() {
                                 size='sm'
                                 width='200px' 
                                 // colorScheme='green' 
-                                backgroundColor={'transparent'}
+                                backgroundColor={'lightgreen'}
                                 border='1px solid lightgreen'
-                                color='lightgreen'
-                                fontWeight={'normal'}
+                                color='black'
+                                fontWeight={'bold'}
                                 _hover={{backgroundColor: 'lightgreen', color: 'black'}}
                             >
                                 Submit

@@ -154,7 +154,7 @@ export default function T() {
 
   return (
     <>
-    <Suspense fallback={<p style={{color: 'white'}}>Loading...</p>} >
+    <Suspense fallback={<p style={{color: 'black'}}>Loading...</p>} >
 
         <Table  
           headers_data={cols}

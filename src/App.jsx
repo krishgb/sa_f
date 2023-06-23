@@ -9,19 +9,20 @@ import Csv from "./components/scan/csv.jsx";
 
 const Signup = lazy(() => import("@/components/signup/Signup"));
 const Login = lazy(() => import("@/components/login/Login"));
+const ChangePassword = lazy(() => import("@/components/profile/ChangePassword"));
 
 const TransferHome = lazy(() => import('@/components/transfer/TransferHome.jsx'))
 const TransferUpload = lazy(() => import("@/components/transfer/Upload/Upload"));
 const TransferView = lazy(() => import("@/components/transfer/DemandAndApproval/DemandAndApproval"));
+const AddTransferData = lazy(() => import("@/components/transfer/AddTransferData.jsx"));
 
-const NameChangeForm = lazy(() => import("@/components/name_change/NewOrCheckStatus"));
+const NameChangeNewOrCheckStatus = lazy(() => import("@/components/name_change/NewOrCheckStatus"));
 const NameChangeView = lazy(() => import("@/components/name_change/NameChangeView"));
 
 const ReadmissionHome = lazy(() => import("@/components/readmission/ReadmissionHome"));
 const ReadmissionUpload = lazy(() => import("@/components/readmission/Upload/Upload"));
 const ReadmissionView = lazy(() => import("@/components/readmission/DemandAndApproval/DemandAndApproval"));
 
-// const NameChangeForm = lazy(() => import("@/components/name_change/NameChangeForm"));
 const GrievanceForm = lazy(() => import("@/components/grievance/NewOrCheckStatus"));
 const GrievanceView = lazy(() => import("@/components/grievance/GrievanceView"));
 
@@ -40,7 +41,7 @@ const Homepage = lazy(() => import("@/ui/Homepage"));
 
 
 function App() {
-  const { global_user, global_allowed_routes, global_is_admin } = useGlobalContext();
+  const { global_user, global_allowed_routes, global_is_admin, global_is_college } = useGlobalContext();
 
   const [authorized, set_authorized] = useState({
     transfer: false,
@@ -49,7 +50,8 @@ function App() {
     name_change: false,
     rra: false,
     grievance: false,
-    admin: false
+    admin: false,
+    college: false,
   })
 
   useEffect(() => {
@@ -58,8 +60,9 @@ function App() {
       obj[route] = true
     }
     if (global_is_admin) obj['admin'] = true
+    else if (global_is_college) obj['college'] = true
     set_authorized(obj)
-  }, [global_user, global_allowed_routes, global_is_admin])
+  }, [global_user, global_allowed_routes, global_is_admin, global_is_college])
 
   return (
     <>
@@ -68,13 +71,9 @@ function App() {
           <Route path="/"
             element={
               <div>
-                <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
-                  <Homepage />
-                </Suspense>
-                {/* <Link to="/signup" style={{ color: 'white' }}>Signup</Link>
-                <br />
-                <Link to="/login" style={{ color: 'white' }}>Login</Link>
-                <br /> */}
+                  <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                    <Homepage />
+                  </Suspense>
               </div>
             }
           />
@@ -91,6 +90,14 @@ function App() {
             element={
               <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
                 <Login />
+              </Suspense>
+            }
+          />
+
+          <Route path="/change_password"
+            element={
+              <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                <ChangePassword />
               </Suspense>
             }
           />
@@ -147,6 +154,20 @@ function App() {
                   <></>
               }
             />
+
+            <Route
+              path="/transfer/add"
+              element={
+                // authorized.transfer ?
+                  <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
+                    <AddTransferData />
+                  </Suspense>
+                  // :
+                  // <></>
+              }
+            />
+
+
           </>
 
           {/* Name Change Routes */}
@@ -154,18 +175,24 @@ function App() {
             <Route
               path="/name_change/new_or_check_status"
               element={
+                (authorized.name_change || authorized.college) ?
                   <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
-                    <NameChangeForm />
+                    <NameChangeNewOrCheckStatus />
                   </Suspense>
+                  :
+                <></>
               }
             />
 
             <Route
               path="/name_change/view"
               element={
+                authorized.name_change ?
                 <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
                   <NameChangeView authorized={authorized.name_change} />
                 </Suspense>
+                :
+                <></>
               }
             />
 
@@ -271,6 +298,7 @@ function App() {
           <>
             <Route path="/break_of_study/new"
               element={
+
                   <Suspense fallback={<div style={{ color: 'white' }}>Loading...</div>}>
                     <BreakOfStudyForm />
                   </Suspense>
